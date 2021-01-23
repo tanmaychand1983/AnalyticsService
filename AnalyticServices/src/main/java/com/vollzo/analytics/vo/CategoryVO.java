@@ -1,4 +1,4 @@
-package com.vollzo.nearMiss.vo;
+package com.vollzo.analytics.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoryVO {
-   
-	private String categoryName;
-	private double categoryValue;
 	
+	private int categoryId;
+	private String categoryName;
+	private int unitId;
 }

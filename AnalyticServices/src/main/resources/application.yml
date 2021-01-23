@@ -1,8 +1,9 @@
+server:  port: 8099
 spring:
   datasource:
-    url: jdbc:mysql://testintuitshipsumms022320.cuwqhuxmvzzy.ap-south-1.rds.amazonaws.com:3306/Test_Intuitships_UMMS    
-    username: testumms2018
-    password: TstIntuitshipstwenty2O
+    url: jdbc:mysql://devdsm-java-db.cwzf6ionsw6p.ap-south-1.rds.amazonaws.com:3306/DEVINTUITSHIPSUMMS    
+    username: devumms2018
+    password: devintuitships-ummstotw0o
   jpa:
     hibernate:
       ddl-auto: none

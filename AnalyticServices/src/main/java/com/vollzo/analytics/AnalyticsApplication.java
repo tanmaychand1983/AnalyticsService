@@ -1,13 +1,13 @@
-package com.vollzo.nearMiss;
+package com.vollzo.analytics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NearMissApplication {
+public class AnalyticsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NearMissApplication.class, args);
+		SpringApplication.run(AnalyticsApplication.class, args);
 	}
 
 }

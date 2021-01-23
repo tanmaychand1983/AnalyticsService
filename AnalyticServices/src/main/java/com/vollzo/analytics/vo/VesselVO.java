@@ -1,4 +1,4 @@
-package com.vollzo.nearMiss.vo;
+package com.vollzo.analytics.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DayNightVO {
-
-	private double day;
-	private double night;
-	
+public class VesselVO {
+	private int vesselId;
+	private String vesselName;
+	private int unitId;
 }
