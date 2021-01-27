@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class VesselVO {
-	private String vesselId;
-	private String vesselName;
+public class AnalyticsResponseVO {
+	private Map<String, AnalyticsVO> unitList;
+	
 }

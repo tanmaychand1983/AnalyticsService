@@ -1,6 +1,5 @@
 package com.vollzo.analytics.vo;
 
-import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -10,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class VesselVO {
-	private String vesselId;
-	private String vesselName;
+public class AnalyticsRequestVO {
+	private String startDate;
+	private String endDate;
+	private String vesselIds;
 }

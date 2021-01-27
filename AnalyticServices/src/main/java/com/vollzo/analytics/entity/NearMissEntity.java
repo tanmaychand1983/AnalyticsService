@@ -4,10 +4,20 @@ package com.vollzo.analytics.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * {@summary}: This is the Entity class for NearMiss.
+ * 
+ * @className: NearMissEntity
+ * @author Ajaya Kar
+ * @since: Jan 23, 2021
+ * @version: 1.0.0
+ * 
+ * @revision: {Name: Date: Reason:} 
+ * 
+ */
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)

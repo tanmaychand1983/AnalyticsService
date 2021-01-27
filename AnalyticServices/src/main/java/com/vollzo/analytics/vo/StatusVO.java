@@ -1,6 +1,7 @@
 package com.vollzo.analytics.vo;
 
-import org.springframework.lang.Nullable;
+import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class StatusVO {
-	
-	private Integer statusId;
+	private String statusId;
 	private String statusName;
-	private int unitId;
 }

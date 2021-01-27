@@ -6,6 +6,17 @@ import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * {@summary}: This is the Entity class for AccidentIncident.
+ * 
+ * @className: AccidentIncidentEntity
+ * @author Ajaya Kar
+ * @since: Jan 23, 2021
+ * @version: 1.0.0
+ * 
+ * @revision: {Name: Date: Reason:} 
+ * 
+ */
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -15,25 +26,25 @@ public class AccidentIncidentEntity extends BaseEntity{
 	private String refNumber;
 	
 	@Column(name = "unit_id")
-	private int unitId;
+	private String unitId;
 	
 	@Column(name = "unit_name")
 	private String unitName;
 	
 	@Column(name = "vessel_id")
-	private int vesselId;
+	private String vesselId;
 	
 	@Column(name = "vesselName")
-	private String vessel_name;
+	private String vesselName;
 	
 	@Column(name = "category_id")
-	private Integer categoryId;
+	private String categoryId;
 	
 	@Column(name = "category_name")
 	private String categoryName;
 	
 	@Column(name = "status_id")
-	private Integer statusId;
+	private String statusId;
 	
 	@Column(name = "status_name")
 	private String statusName;	
@@ -47,15 +58,19 @@ public class AccidentIncidentEntity extends BaseEntity{
 	@Column(name = "severity")
 	private String severity;
 	
+	@Column(name = "title")
+	private String title;
+	
 	
 	@Override
     public String toString() {
         return "NearMissEntity [unitId=" + unitId + ", unitName=" + unitName + 
-                ", vesselId=" + vesselId + ", vesselName=" + vessel_name   + 
+                ", vesselId=" + vesselId + ", vesselName=" + vesselName   + 
                 ", categoryId=" + categoryId + ", categoryName="+ categoryName +
                 ", statusId=" + statusId + ", statusName="+ statusName +
                 ", refNumber=" + refNumber + ", reportedDate="+ reportedDate +
                 ", reportedBy=" + reportedBy + ", severity=" + severity +
+                ", reportedBy=" + reportedBy + ", title=" + title +
                 "]";
     }
 	
