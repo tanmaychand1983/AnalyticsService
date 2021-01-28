@@ -1,6 +1,8 @@
 package com.vollzo.analytics.vo;
 
 import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,23 +14,26 @@ import lombok.NoArgsConstructor;
 public class AnalyticsVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<GridVO> dataList;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<StatusVO> statusList;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<CategoryVO> categoryList;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<VesselVO> vesselList;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<SeverityVO> severityList;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String unitId;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String unitName;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> vesselList;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> categoryList;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> statusList;
+	
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> severityList;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<GridVO> dataList;
+	
+	
 }

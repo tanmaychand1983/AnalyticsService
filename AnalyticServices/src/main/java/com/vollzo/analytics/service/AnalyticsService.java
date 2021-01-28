@@ -13,15 +13,12 @@ import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.repository.BaseRepository;
 import com.vollzo.analytics.repository.QueryRepository;
+import com.vollzo.analytics.util.Constant;
 import com.vollzo.analytics.util.Util;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
-import com.vollzo.analytics.vo.CategoryVO;
 import com.vollzo.analytics.vo.GridVO;
-import com.vollzo.analytics.vo.SeverityVO;
 import com.vollzo.analytics.vo.AnalyticsVO;
-import com.vollzo.analytics.vo.StatusVO;
-import com.vollzo.analytics.vo.VesselVO;
 
 /**
  * {@summary}: This is the Service class for Analytical module.
@@ -54,39 +51,39 @@ public class AnalyticsService {
 		List<NearMissEntity> nearMissEntityList 	= repository.getNeaMissData(QueryRepository.STORPROC_DASHBOARD_NEARMISS, requestVO);
 		AnalyticsResponseVO analyticsResponseVO 					= new AnalyticsResponseVO();
 		Map<String, AnalyticsVO> unitMapList 		= new HashMap<>();
-		List<StatusVO> statusList 					= null;
-		List<CategoryVO> categoryList 				= null;
-		List<VesselVO> vesselList 					= null;
-		StatusVO statusVO 							= null;
-		CategoryVO categoryVO 						= null;
-		VesselVO vesselVO 							= null;
 		GridVO gridVO 								= null;
 		AnalyticsVO analyticsVO						= null;
+		List<Map<String, String>> categoryList 		= null;
+		Map<String, String> categoryMap 			= null;
+		List<Map<String, String>> vesselList 		= null;
+		Map<String, String> vesselMap 				= null;
+		List<Map<String, String>> statusList 		= null;
+		Map<String, String> statusMap 				= null;
 		for(NearMissEntity entity :  nearMissEntityList) {
-			categoryVO 		= new CategoryVO();
-			statusVO 		= new StatusVO();
-			vesselVO 		= new VesselVO();
-			gridVO 	= new GridVO();
+			gridVO 		= new GridVO();
+			categoryMap = new HashMap<>();
+			vesselMap 	= new HashMap<>();
+			statusMap 	= new HashMap<>();
 			if(!unitMapList.containsKey(entity.getUnitName())) {
-				analyticsVO 		= new AnalyticsVO();
+				analyticsVO 	= new AnalyticsVO();
 				categoryList 	= new ArrayList<>();
 				statusList 		= new ArrayList<>();
 				vesselList 		= new ArrayList<>();
 				
 				/*@Set Category list*/
-				categoryVO.setCategoryId(Util.nullCheck(entity.getCategoryId()));
-				categoryVO.setCategoryName(Util.nullCheck(entity.getCategoryName()));
-				categoryList.add(categoryVO);
+				categoryMap.put(Constant.CATEGORY_ID, Util.nullCheck(entity.getCategoryId()));
+				categoryMap.put(Constant.CATEGORY_NAME, Util.nullCheck(entity.getCategoryName()));
+				categoryList.add(categoryMap);
 				
 				/*@Set Status list*/
-				statusVO.setStatusId(Util.nullCheck(entity.getStatusId()));
-				statusVO.setStatusName(Util.nullCheck(entity.getStatusName()));
-				statusList.add(statusVO);
+				statusMap.put(Constant.STATUS_ID, Util.nullCheck(entity.getStatusId()));
+				statusMap.put(Constant.STATUS_NAME, Util.nullCheck(entity.getStatusName()));
+				statusList.add(statusMap);
 				
 				/*@Set Vessel list*/
-				vesselVO.setVesselId(Util.nullCheck(entity.getVesselId()));
-				vesselVO.setVesselName(Util.nullCheck(entity.getVesselName()));
-				vesselList.add(vesselVO);
+				vesselMap.put(Constant.VESSEL_ID, Util.nullCheck(entity.getVesselId()));
+				vesselMap.put(Constant.VESSEL_NAME, Util.nullCheck(entity.getVesselName()));
+				vesselList.add(vesselMap);
 				
 				/*@Set NearMiss VO*/
 				analyticsVO.setUnitId(Util.nullCheck(entity.getUnitId()));
@@ -100,28 +97,16 @@ public class AnalyticsService {
 				unitMapList.put(entity.getUnitName(), analyticsVO);
 			}else {
 				/*@Add Category list*/
-				if(unitMapList.get(entity.getUnitName()).getCategoryList().stream()
-					     .filter(item -> item.getCategoryId().equals(Util.nullCheck(entity.getCategoryId()))).collect(Collectors.toList()).size() < 1) {
-					categoryVO.setCategoryId(Util.nullCheck(entity.getCategoryId()));
-					categoryVO.setCategoryName(Util.nullCheck(entity.getCategoryName()));
-					unitMapList.get(entity.getUnitName()).getCategoryList().add(categoryVO);
-				}
+				setFilters(unitMapList.get(entity.getUnitName()).getCategoryList(), Constant.CATEGORY_ID, 
+						Constant.CATEGORY_NAME, categoryMap, entity.getCategoryId(), entity.getCategoryName());
 				
 				/*@Add Status list*/
-				if(unitMapList.get(entity.getUnitName()).getStatusList().stream()
-					     .filter(item -> item.getStatusId().equals(Util.nullCheck(entity.getStatusId()))).collect(Collectors.toList()).size() < 1) {
-					statusVO.setStatusId(Util.nullCheck(entity.getStatusId().toString()));
-					statusVO.setStatusName(Util.nullCheck(entity.getStatusName()));
-					unitMapList.get(entity.getUnitName()).getStatusList().add(statusVO);
-				}
-				
+				setFilters(unitMapList.get(entity.getUnitName()).getStatusList(), Constant.STATUS_ID, 
+						Constant.STATUS_NAME, statusMap, entity.getStatusId(), entity.getStatusName());
+								
 				/*@Add Vessel list*/
-				if(unitMapList.get(entity.getUnitName()).getVesselList().stream()
-					     .filter(item -> item.getVesselId().equals(Util.nullCheck(entity.getVesselId()))).collect(Collectors.toList()).size() < 1) {
-					vesselVO.setVesselId(Util.nullCheck(entity.getVesselId()));
-					vesselVO.setVesselName(Util.nullCheck(entity.getVesselName()));
-					unitMapList.get(entity.getUnitName()).getVesselList().add(vesselVO);
-				}
+				setFilters(unitMapList.get(entity.getUnitName()).getVesselList(), Constant.VESSEL_ID, 
+						Constant.VESSEL_NAME, vesselMap, entity.getVesselId(), entity.getVesselName());
 			}
 			
 			/*@Set Data list*/
@@ -153,22 +138,23 @@ public class AnalyticsService {
 		List<AccidentIncidentEntity> accidentIncidentEntityList = repository.getAccidentIncidentData(QueryRepository.STORPROC_DASHBOARD_ACCINC, requestVO);
 		AnalyticsResponseVO analyticsResponseVO 	= new AnalyticsResponseVO();
 		Map<String, AnalyticsVO> unitMapList 		= new HashMap<>();
-		List<StatusVO> statusList 					= null;
-		List<CategoryVO> categoryList 				= null;
-		List<VesselVO> vesselList 					= null;
-		List<SeverityVO> severityList 				= null;
-		StatusVO statusVO 							= null;
-		CategoryVO categoryVO 						= null;
-		VesselVO vesselVO 							= null;
+		
 		GridVO gridVO 								= null;
 		AnalyticsVO analyticsVO						= null;
-		SeverityVO severityVO						= null;
+		List<Map<String, String>> categoryList 		= null;
+		Map<String, String> categoryMap 			= null;
+		List<Map<String, String>> vesselList 		= null;
+		Map<String, String> vesselMap 				= null;
+		List<Map<String, String>> statusList 		= null;
+		Map<String, String> statusMap 				= null;
+		List<Map<String, String>> severityList 		= null;
+		Map<String, String> severityMap 			= null;
 		for(AccidentIncidentEntity entity :  accidentIncidentEntityList) {
-			categoryVO 		= new CategoryVO();
-			statusVO 		= new StatusVO();
-			vesselVO 		= new VesselVO();
-			gridVO 			= new GridVO();
-			severityVO		= new SeverityVO();
+			categoryMap = new HashMap<>();
+			vesselMap 	= new HashMap<>();
+			statusMap 	= new HashMap<>();
+			gridVO 		= new GridVO();
+			severityMap	= new HashMap<>();
 			if(!unitMapList.containsKey(entity.getUnitName())) {
 				analyticsVO 	= new AnalyticsVO();
 				categoryList 	= new ArrayList<>();
@@ -177,23 +163,23 @@ public class AnalyticsService {
 				severityList	= new ArrayList<>();
 				
 				/*@Set Category list*/
-				categoryVO.setCategoryId(Util.nullCheck(entity.getCategoryId()));
-				categoryVO.setCategoryName(Util.nullCheck(entity.getCategoryName()));
-				categoryList.add(categoryVO);
+				categoryMap.put(Constant.CATEGORY_ID, Util.nullCheck(entity.getCategoryId()));
+				categoryMap.put(Constant.CATEGORY_NAME, Util.nullCheck(entity.getCategoryName()));
+				categoryList.add(categoryMap);
 				
 				/*@Set Status list*/
-				statusVO.setStatusId(Util.nullCheck(entity.getStatusId()));
-				statusVO.setStatusName(Util.nullCheck(entity.getStatusName()));
-				statusList.add(statusVO);
+				statusMap.put(Constant.STATUS_ID, Util.nullCheck(entity.getStatusId()));
+				statusMap.put(Constant.STATUS_NAME, Util.nullCheck(entity.getStatusName()));
+				statusList.add(statusMap);
 				
 				/*@Set Vessel list*/
-				vesselVO.setVesselId(Util.nullCheck(entity.getVesselId()));
-				vesselVO.setVesselName(Util.nullCheck(entity.getVesselName()));
-				vesselList.add(vesselVO);
+				vesselMap.put(Constant.VESSEL_ID, Util.nullCheck(entity.getVesselId()));
+				vesselMap.put(Constant.VESSEL_NAME, Util.nullCheck(entity.getVesselName()));
+				vesselList.add(vesselMap);
 				
 				/*@Set Severity list*/
-				severityVO.setSeverity(Util.nullCheck(entity.getSeverity()));
-				severityList.add(severityVO);
+				severityMap.put(Constant.SEVERITY, Util.nullCheck(entity.getSeverity()));
+				severityList.add(severityMap);
 				
 				/*@Set AccidentIncident VO*/
 				analyticsVO.setUnitId(Util.nullCheck(entity.getUnitId()));
@@ -201,41 +187,28 @@ public class AnalyticsService {
 				analyticsVO.setCategoryList(categoryList);
 				analyticsVO.setStatusList(statusList);
 				analyticsVO.setVesselList(vesselList);
+				analyticsVO.setSeverityList(severityList);
 				analyticsVO.setDataList(new ArrayList<>());
 				
 				/*@Set Unit Map list*/
 				unitMapList.put(entity.getUnitName(), analyticsVO);
 			}else {
+				
 				/*@Add Category list*/
-				if(unitMapList.get(entity.getUnitName()).getCategoryList().stream()
-					     .filter(item -> item.getCategoryId().equals(Util.nullCheck(entity.getCategoryId()))).collect(Collectors.toList()).size() < 1) {
-					categoryVO.setCategoryId(Util.nullCheck(entity.getCategoryId()));
-					categoryVO.setCategoryName(Util.nullCheck(entity.getCategoryName()));
-					unitMapList.get(entity.getUnitName()).getCategoryList().add(categoryVO);
-				}
+				setFilters(unitMapList.get(entity.getUnitName()).getCategoryList(), Constant.CATEGORY_ID, 
+						Constant.CATEGORY_NAME, categoryMap, entity.getCategoryId(), entity.getCategoryName());
 				
 				/*@Add Status list*/
-				if(unitMapList.get(entity.getUnitName()).getStatusList().stream()
-					     .filter(item -> item.getStatusId().equals(Util.nullCheck(entity.getStatusId()))).collect(Collectors.toList()).size() < 1) {
-					statusVO.setStatusId(Util.nullCheck(entity.getStatusId().toString()));
-					statusVO.setStatusName(Util.nullCheck(entity.getStatusName()));
-					unitMapList.get(entity.getUnitName()).getStatusList().add(statusVO);
-				}
-				
+				setFilters(unitMapList.get(entity.getUnitName()).getStatusList(), Constant.STATUS_ID, 
+						Constant.STATUS_NAME, statusMap, entity.getStatusId(), entity.getStatusName());
+								
 				/*@Add Vessel list*/
-				if(unitMapList.get(entity.getUnitName()).getVesselList().stream()
-					     .filter(item -> item.getVesselId().equals(Util.nullCheck(entity.getVesselId()))).collect(Collectors.toList()).size() < 1) {
-					vesselVO.setVesselId(Util.nullCheck(entity.getVesselId()));
-					vesselVO.setVesselName(Util.nullCheck(entity.getVesselName()));
-					unitMapList.get(entity.getUnitName()).getVesselList().add(vesselVO);
-				}
+				setFilters(unitMapList.get(entity.getUnitName()).getVesselList(), Constant.VESSEL_ID, 
+						Constant.VESSEL_NAME, vesselMap, entity.getVesselId(), entity.getVesselName());
 				
 				/*@Add Severity list*/
-				if(unitMapList.get(entity.getUnitName()).getSeverityList().stream()
-					     .filter(item -> item.getSeverity().equals(Util.nullCheck(entity.getSeverity()))).collect(Collectors.toList()).size() < 1) {
-					severityVO.setSeverity(Util.nullCheck(entity.getSeverity()));
-					unitMapList.get(entity.getUnitName()).getSeverityList().add(severityVO);
-				}
+				setFilters(unitMapList.get(entity.getUnitName()).getSeverityList(),  
+						Constant.SEVERITY, "", severityMap, entity.getSeverity(), null);
 			}
 			
 			/*@Set Data list*/
@@ -262,5 +235,19 @@ public class AnalyticsService {
 	
 	public List<PurchaseOrderEntity> getPurchaseOrderData(){
 		return repository.getPurchaseOrderData(QueryRepository.STORPROC_DASHBOARD_PURORD);
+	}
+	
+	private static void setFilters(List<Map<String, String>> listMap, String idKey, String nameKey, Map<String, String> mapObj, Object id, Object name) {
+		
+		if(listMap != null) {
+			if(listMap.stream()
+				     .filter(item -> item.get(idKey).equals(Util.nullCheck(id))).collect(Collectors.toList()).size() < 1) {
+				if(!"".equals(idKey))
+					mapObj.put(idKey, Util.nullCheck(id));
+				if(!"".equals(nameKey))
+					mapObj.put(nameKey, Util.nullCheck(name));
+				listMap.add(mapObj);
+			}
+		}
 	}
 }
