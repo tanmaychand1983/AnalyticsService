@@ -35,6 +35,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
      * 
      * @methodName: getNeaMissData
      * @param:  procedureName - Procedure Name
+     * @param: vesselId - Vessel Id List (Required)
      * @param: startDate - Start Date (defaultValue = "")
      * @param: endDate -  End Date (defaultValue = "")
      * @return - List<NearMissEntity>
@@ -47,6 +48,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
 		query.setParameter(1, requestVO.getVesselIds());
 		query.setParameter(2, requestVO.getStartDate());
 		query.setParameter(3, requestVO.getEndDate());
@@ -61,6 +63,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
      * 
      * @methodName: getAccidentIncidentData
      * @param:  procedureName - Procedure Name
+     * @param: vesselId - Vessel Id List (Required)
      * @return - List<AccidentIncidentEntity>
      * 
      */
