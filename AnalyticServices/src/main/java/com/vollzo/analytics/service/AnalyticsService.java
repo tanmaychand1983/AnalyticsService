@@ -42,6 +42,7 @@ public class AnalyticsService {
      * Returns NearMiss Filter, Graph and Grid data by date range from Data layer.
      * 
      * @methodName: getNearMissData
+     * @param: vesselId - Vessel Id List (Required)
      * @param startDate - Start Date (defaultValue = "")
      * @param endDate -  End Date (defaultValue = "")
      * @return - AnalyticsVO
@@ -229,8 +230,96 @@ public class AnalyticsService {
 		return analyticsResponseVO;
 	}
 	
-	public List<NonConformityEntity> getNonConformityData(){
-		return repository.getNonConformityData(QueryRepository.STORPROC_DASHBOARD_NONCONF);
+	/**
+     * Returns Non Conformity Filter, Graph and Grid data by date range from Data layer.
+     * 
+     * @methodName: getNonConformityData
+     * @param: vesselId - Vessel Id List (Required)
+     * @param startDate - Start Date (defaultValue = "")
+     * @param endDate -  End Date (defaultValue = "")
+     * @return - AnalyticsResponseVO
+     * 
+     */
+	public AnalyticsResponseVO getNonConformityData(AnalyticsRequestVO requestVO){
+		List<NonConformityEntity> nonConformityEntityList = 
+					repository.getNonConformityData(QueryRepository.STORPROC_DASHBOARD_NONCONF, requestVO);
+		AnalyticsResponseVO analyticsResponseVO = new AnalyticsResponseVO();
+		Map<String, AnalyticsVO> unitMapList 	= new HashMap<>();
+		
+		GridVO gridVO 							= null;
+		AnalyticsVO analyticsVO					= null;
+		List<Map<String, String>> vesselList 	= null;
+		Map<String, String> vesselMap 			= null;
+		List<Map<String, String>> statusList 	= null;
+		Map<String, String> statusMap 			= null;
+		List<Map<String, String>> auditTypeList = null;
+		Map<String, String> auditTypeMap 		= null;
+		for(NonConformityEntity entity : nonConformityEntityList) {
+			gridVO 			= new GridVO();
+			vesselMap 		= new HashMap<>();
+			statusMap 		= new HashMap<>();
+			auditTypeMap 	= new HashMap<>();
+			
+			if(!unitMapList.containsKey(entity.getUnitName())) {
+				analyticsVO 	= new AnalyticsVO();
+				vesselList 		= new ArrayList<>();
+				statusList 		= new ArrayList<>();
+				auditTypeList 	= new ArrayList<>();
+				
+				/*@Set Vessel list*/
+				vesselMap.put(Constant.VESSEL_ID, Util.nullCheck(entity.getVesselId()));
+				vesselMap.put(Constant.VESSEL_NAME, Util.nullCheck(entity.getVesselName()));
+				vesselList.add(vesselMap);
+				
+				/*@Set Status list*/
+				statusMap.put(Constant.STATUS_ID, Util.nullCheck(entity.getStatusId()));
+				statusMap.put(Constant.STATUS_NAME, Util.nullCheck(entity.getStatusName()));
+				statusList.add(statusMap);
+				
+				/*@Set AuditType list*/
+				auditTypeMap.put(Constant.AUDIT_TYPE, Util.nullCheck(entity.getAuditType()));
+				auditTypeList.add(auditTypeMap);
+				
+				/*@Set NonConformity VO*/
+				analyticsVO.setUnitId(Util.nullCheck(entity.getUnitId()));
+				analyticsVO.setUnitName(Util.nullCheck(entity.getUnitName()));
+				analyticsVO.setStatusList(statusList);
+				analyticsVO.setVesselList(vesselList);
+				analyticsVO.setAuthTypeList(auditTypeList);
+				analyticsVO.setDataList(new ArrayList<>());
+				
+				/*@Set Unit Map list*/
+				unitMapList.put(entity.getUnitName(), analyticsVO);
+			}else{
+				/*@Add Vessel list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getVesselList(), Constant.VESSEL_ID, 
+						Constant.VESSEL_NAME, vesselMap, entity.getVesselId(), entity.getVesselName());
+				
+				/*@Add Status list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getStatusList(), Constant.STATUS_ID, 
+						Constant.STATUS_NAME, statusMap, entity.getStatusId(), entity.getStatusName());
+				
+				/*@Add AuditType list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getAuthTypeList(),  
+						Constant.AUDIT_TYPE, "", auditTypeMap, entity.getAuditType(), null);
+			}
+			
+			/*@Set Data list*/
+			gridVO.setId(entity.getId());
+			gridVO.setVesselId(Util.nullCheck(entity.getVesselId()));
+			gridVO.setVesselName(Util.nullCheck(entity.getVesselName()));
+			gridVO.setRefNumber(Util.nullCheck(entity.getRefNumber()));
+			gridVO.setPortName(Util.nullCheck(entity.getPortName()));
+			gridVO.setAuditType(Util.nullCheck(entity.getAuditType()));
+			gridVO.setStage(Util.nullCheck(entity.getStage()));
+			gridVO.setAuditDate(Util.nullCheck(entity.getAuditDate()));
+			gridVO.setDueDate(Util.nullCheck(entity.getDueDate()));
+			gridVO.setStatusId(Util.nullCheck(entity.getStatusId()));
+			gridVO.setStatusName(Util.nullCheck(entity.getStatusName()));
+			unitMapList.get(entity.getUnitName()).getDataList().add(gridVO);
+		}
+		analyticsResponseVO.setUnitList(unitMapList);
+		return analyticsResponseVO;
 	}
 	
 	public List<PurchaseOrderEntity> getPurchaseOrderData(){

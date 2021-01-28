@@ -6,13 +6,22 @@ import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * {@summary}: This is the Entity class for Non Conformity Dashboard.
+ * 
+ * @className: NonConformityEntity
+ * @author Deepak Bansal
+ * @since: Jan 28, 2021
+ * @version: 1.0.0
+ * 
+ * @revision: {Name: Date: Reason:} 
+ * 
+ */
+
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class NonConformityEntity extends BaseEntity{
-	
-	@Column(name = "ref_number")
-	private String refNumber;
 	
 	@Column(name = "unit_id")
 	private int unitId;
@@ -23,14 +32,11 @@ public class NonConformityEntity extends BaseEntity{
 	@Column(name = "vessel_id")
 	private int vesselId;
 	
-	@Column(name = "vesselName")
-	private String vessel_name;
+	@Column(name = "vessel_name")
+	private String vesselName;
 	
-	@Column(name = "category_id")
-	private int categoryId;
-	
-	@Column(name = "category_name")
-	private String categoryName;
+	@Column(name = "audit_type")
+	private String auditType;
 	
 	@Column(name = "status_id")
 	private Integer statusId;
@@ -38,24 +44,34 @@ public class NonConformityEntity extends BaseEntity{
 	@Column(name = "status_name")
 	private String statusName;	
 	
-	@Column(name = "reported_date")
-	private String reportedDate;
+	@Column(name = "summary")
+	private String summary;
 	
-	@Column(name = "reported_by")
-	private String reportedBy;
+	@Column(name = "ref_number")
+	private String refNumber;
 	
-	@Column(name = "title")
-	private String title;
+	@Column(name = "stage")
+	private String stage;
+	
+	@Column(name = "port_name")
+	private String portName;
+	
+	@Column(name = "audit_date")
+	private String auditDate;
+	
+	@Column(name = "due_date")
+	private String dueDate;
 	
 	
 	@Override
     public String toString() {
         return "NearMissEntity [unitId=" + unitId + ", unitName=" + unitName + 
-                ", vesselId=" + vesselId + ", vesselName=" + vessel_name   + 
-                ", categoryId=" + categoryId + ", categoryName="+ categoryName +
+                ", vesselId=" + vesselId + ", vesselName=" + vesselName   + 
                 ", statusId=" + statusId + ", statusName="+ statusName +
-                ", refNumber=" + refNumber + ", reportedDate="+ reportedDate +
-                ", reportedBy=" + reportedBy + ", title=" + title +
+                ", auditType=" + auditType + ", stage="+ stage +
+                ", refNumber=" + refNumber + ", auditDate="+ auditDate +
+                ", dueDate=" + dueDate + ", portName=" + portName +
+                ", summary=" + summary +
                 "]";
     }
 	

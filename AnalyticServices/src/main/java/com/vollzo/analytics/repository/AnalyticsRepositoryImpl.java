@@ -78,11 +78,31 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		return query.getResultList();
 	}
 
-
+	/**
+     * Returns NonConformityData Filter, Graph and Grid data from DB.
+     * @methodName: getNonConformityData
+     * @param:  procedureName - Procedure Name
+     * @param: vesselId - Vessel Id List (Required)
+     * @param: startDate - Start Date (defaultValue = "")
+     * @param: endDate -  End Date (defaultValue = "")
+     * @return - List<NonConformityEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<NonConformityEntity> getNonConformityData(String procedureName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NonConformityEntity> getNonConformityData(String procedureName, 
+			AnalyticsRequestVO requestVO) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				NonConformityEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		query.execute();
+		return query.getResultList();
 	}
 
 

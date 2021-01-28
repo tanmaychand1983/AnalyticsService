@@ -20,8 +20,11 @@ import com.vollzo.analytics.vo.AnalyticsRequestVO;
  * 
  */
 public interface AnalyticsRepository {
-	public List<NearMissEntity> getNeaMissData(String procedureName, AnalyticsRequestVO requestVO);
-	public List<AccidentIncidentEntity> getAccidentIncidentData(String procedureName, AnalyticsRequestVO requestVO);
-	public List<NonConformityEntity> getNonConformityData(String procedureName);
+	public List<NearMissEntity> getNeaMissData(String procedureName, 
+			AnalyticsRequestVO requestVO);
+	public List<AccidentIncidentEntity> getAccidentIncidentData(String procedureName, 
+			AnalyticsRequestVO requestVO);
+	public List<NonConformityEntity> getNonConformityData(String procedureName, 
+			AnalyticsRequestVO requestVO);
 	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName);
 }

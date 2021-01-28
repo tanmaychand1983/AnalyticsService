@@ -72,12 +72,25 @@ public class AnalyticsController {
 		return analyticsServices.getAccidentIncidentData(requestVO);	
 	}
 	
+	/**
+     * Returns Non Conformity Filter, Graph and Grid data by date range from Service layer.
+     * 
+     * @methodName: getNonConformityData
+     * @serviceURL: http://<host:port>/analytics/nonconformity
+     * @param: vesselId - Vessel Id List (Required)
+     * @param startDate - Start Date (defaultValue = "")
+     * @param endDate -  End Date (defaultValue = "")
+     * @return - requestVO (JSON Object)
+     * 
+     */
+	
 	@GetMapping(value ="/nonconformity", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<NonConformityEntity> getNonConformityData() {
+	public AnalyticsResponseVO getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getNonConformityData] method!");
-		return analyticsServices.getNonConformityData();	
+		return analyticsServices.getNonConformityData(requestVO);	
 	}
+	
 	
 	@GetMapping(value ="/purchaseorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

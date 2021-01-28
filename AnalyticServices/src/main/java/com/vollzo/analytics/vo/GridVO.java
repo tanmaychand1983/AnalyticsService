@@ -41,4 +41,25 @@ public class GridVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String statusName;
+	
+	/*
+	 * @Comments: Additional columns for Non Conformity Dashboard
+	 * @Author: Deepak Bansal
+	 * @Date: Jan 28, 2021
+	 */
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String portName;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String auditType;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String stage;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String auditDate;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String dueDate;
+	
 }

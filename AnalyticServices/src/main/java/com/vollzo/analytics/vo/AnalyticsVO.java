@@ -35,5 +35,14 @@ public class AnalyticsVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<GridVO> dataList;
 	
+	/*
+	 * @Comments: Additional Filter for Non Conformity Dashboard
+	 * @Author: Deepak Bansal
+	 * @Date: Jan 28, 2021
+	 */
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> authTypeList;
+	
 	
 }

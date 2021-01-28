@@ -9,5 +9,6 @@ public class Constant {
 	public static final String STATUS_ID 		= "statusId";
 	public static final String STATUS_NAME 		= "statusName";
 	public static final String SEVERITY 		= "severity";
+	public static final String AUDIT_TYPE 		= "auditType";
 	
 }
