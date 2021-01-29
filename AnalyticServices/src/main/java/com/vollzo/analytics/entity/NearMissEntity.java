@@ -35,7 +35,7 @@ public class NearMissEntity extends BaseEntity{
 	@Column(name = "vessel_id")
 	private int vesselId;
 	
-	@Column(name = "vesselName")
+	@Column(name = "vessel_Name")
 	private String vesselName;
 	
 	@Column(name = "category_id")
