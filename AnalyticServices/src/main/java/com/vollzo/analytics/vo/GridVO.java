@@ -62,4 +62,30 @@ public class GridVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String dueDate;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String requisitionNumber;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String poNumber;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String poTitle;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String requisitionFor;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String accountCode;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String totalAmount;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String invoiceNo;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String invoiceAmount;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String netToPay;
 }

@@ -106,10 +106,29 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 	}
 
 
+	/**
+     * Returns Purchase Order Filter, Graph and Grid data from DB.
+     * 
+     * @methodName: getPurchaseOrderData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @return - List<PurchaseOrderEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName, AnalyticsRequestVO requestVO) {
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				PurchaseOrderEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		query.execute();
+		return query.getResultList();
 	}
 
 	

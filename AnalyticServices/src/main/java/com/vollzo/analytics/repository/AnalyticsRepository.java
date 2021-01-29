@@ -26,5 +26,6 @@ public interface AnalyticsRepository {
 			AnalyticsRequestVO requestVO);
 	public List<NonConformityEntity> getNonConformityData(String procedureName, 
 			AnalyticsRequestVO requestVO);
-	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName);
+	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName,
+			AnalyticsRequestVO requestVO);
 }

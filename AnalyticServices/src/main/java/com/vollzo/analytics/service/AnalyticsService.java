@@ -322,8 +322,122 @@ public class AnalyticsService {
 		return analyticsResponseVO;
 	}
 	
-	public List<PurchaseOrderEntity> getPurchaseOrderData(){
-		return repository.getPurchaseOrderData(QueryRepository.STORPROC_DASHBOARD_PURORD);
+	/**
+     * Returns Purchase Order Filter, Graph and Grid data by date range and vesselIds from Data layer.
+     * 
+     * @methodName: getPurchaseOrderData
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @return - AnalyticsResponseVO
+     * 
+     */
+	public AnalyticsResponseVO getPurchaseOrderData(AnalyticsRequestVO requestVO){
+		List<PurchaseOrderEntity> entityList 		= 
+				repository.getPurchaseOrderData(QueryRepository.STORPROC_DASHBOARD_PURORD, requestVO);
+		
+		AnalyticsResponseVO responseVO 				= new AnalyticsResponseVO();
+		Map<String, AnalyticsVO> unitMapList 		= new HashMap<>();
+		
+		GridVO gridVO 								= null;
+		AnalyticsVO analyticsVO						= null;
+		List<Map<String, String>> materialTypeList 	= null;
+		List<Map<String, String>> vendorList 		= null;
+		List<Map<String, String>> vesselList 		= null;
+		List<Map<String, String>> statusList 		= null;
+		List<Map<String, String>> budgetCodeList 	= null;
+		
+		Map<String, String> materialTypeMap 		= null;
+		Map<String, String> vendorMap 				= null;
+		Map<String, String> vesselMap 				= null;
+		Map<String, String> statusMap 				= null;
+		Map<String, String> budgetCodeMap 			= null;
+		
+		for(PurchaseOrderEntity entity :  entityList) {
+			gridVO 			= new GridVO();
+			materialTypeMap = new HashMap<>();
+			vendorMap 		= new HashMap<>();
+			vesselMap 		= new HashMap<>();
+			statusMap 		= new HashMap<>();
+			budgetCodeMap 	= new HashMap<>();
+			if(!unitMapList.containsKey(entity.getUnitName())) {
+				analyticsVO 		= new AnalyticsVO();
+				materialTypeList 	= new ArrayList<>();
+				vendorList 			= new ArrayList<>();
+				vesselList 			= new ArrayList<>();
+				statusList 			= new ArrayList<>();
+				budgetCodeList 		= new ArrayList<>();
+				
+				
+				/*@Set Material Type list*/
+				materialTypeMap.put(Constant.MATERIAL_TYPE, Util.nullCheck(entity.getMaterialType()));
+				materialTypeList.add(materialTypeMap);
+				
+				/*@Set Vendor list*/
+				vendorMap.put(Constant.VENDOR_ID, Util.nullCheck(entity.getVendorId()));
+				vendorMap.put(Constant.VENDOR_NAME, Util.nullCheck(entity.getVendorName()));
+				vendorList.add(vendorMap);
+				
+				/*@Set Vessel list*/
+				vesselMap.put(Constant.VESSEL_ID, Util.nullCheck(entity.getVesselId()));
+				vesselMap.put(Constant.VESSEL_NAME, Util.nullCheck(entity.getVesselName()));
+				vesselList.add(vesselMap);
+				
+				/*@Set Status list*/
+				statusMap.put(Constant.STATUS_ID, Util.nullCheck(entity.getStatusId()));
+				statusMap.put(Constant.STATUS_NAME, Util.nullCheck(entity.getStatusName()));
+				statusList.add(statusMap);
+				
+				/*@Set Budget Code list*/
+				budgetCodeMap.put(Constant.BUDGET_CODE, Util.nullCheck(entity.getBudgetCode()));
+				budgetCodeList.add(budgetCodeMap);
+				
+				/*@Set Analytics VO for Purchase Order*/
+				analyticsVO.setUnitId(Util.nullCheck(entity.getUnitId()));
+				analyticsVO.setUnitName(Util.nullCheck(entity.getUnitName()));
+				analyticsVO.setMaterialTypeList(materialTypeList);
+				analyticsVO.setVendorList(vendorList);
+				analyticsVO.setVesselList(vesselList);
+				analyticsVO.setStatusList(statusList);
+				analyticsVO.setBudgetCodeList(budgetCodeList);
+				analyticsVO.setDataList(new ArrayList<>());
+				
+				/*@Set Unit Map list*/
+				unitMapList.put(entity.getUnitName(), analyticsVO);
+			}else {
+				/*@Add Material Type list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getMaterialTypeList(), Constant.MATERIAL_TYPE, 
+						"", materialTypeMap, entity.getMaterialType(), null);
+				
+				/*@Add Vendor list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getVendorList(), Constant.VENDOR_ID, 
+				Constant.VENDOR_NAME, vendorMap, entity.getVendorId(), entity.getVendorName());
+				
+				/*@Add Vessel list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getVesselList(), Constant.VESSEL_ID, 
+						Constant.VESSEL_NAME, vesselMap, entity.getVesselId(), entity.getVesselName());
+				
+				/*@Add Status list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getStatusList(), Constant.STATUS_ID, 
+						Constant.STATUS_NAME, statusMap, entity.getStatusId(), entity.getStatusName());
+				
+				/*@Add Budget Code list*/
+				setFilters(unitMapList.get(entity.getUnitName()).getBudgetCodeList(), Constant.BUDGET_CODE, 
+						"", budgetCodeMap, entity.getBudgetCode(), null);				
+			}
+			
+			/*@Set Data list*/
+			gridVO.setId(entity.getId());
+			gridVO.setRequisitionNumber(Util.nullCheck(entity.getRequisitionNumber()));
+			gridVO.setPoNumber(Util.nullCheck(entity.getPoNumber()));
+			gridVO.setPoTitle(Util.nullCheck(null));
+			gridVO.setAccountCode(Util.nullCheck(null));
+			gridVO.setTotalAmount(Util.nullCheck(entity.getTotalAmount()));
+			gridVO.setInvoiceNo(Util.nullCheck(entity.getInvoiceNumber()));
+			gridVO.setInvoiceAmount(Util.nullCheck(entity.getInvoiceAmount()));
+			gridVO.setNetToPay(Util.nullCheck(entity.getNetPay()));
+			unitMapList.get(entity.getUnitName()).getDataList().add(gridVO);
+		}	
+		responseVO.setUnitList(unitMapList);
+		return responseVO;
 	}
 	
 	private static void setFilters(List<Map<String, String>> listMap, String idKey, String nameKey, Map<String, String> mapObj, Object id, Object name) {

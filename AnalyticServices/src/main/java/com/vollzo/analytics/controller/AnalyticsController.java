@@ -91,11 +91,19 @@ public class AnalyticsController {
 		return analyticsServices.getNonConformityData(requestVO);	
 	}
 	
-	
+	/**
+     * Returns Purchase Order Filter, Graph and Grid data by date range and vesselIds from Service layer.
+     * 
+     * @methodName: getPurchaseOrderData
+     * @serviceURL: http://<host:port>/analytics/purchaseorder
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @return - requestVO (JSON Object)
+     * 
+     */
 	@GetMapping(value ="/purchaseorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<PurchaseOrderEntity> getPurchaseOrderData() {
+	public AnalyticsResponseVO getPurchaseOrderData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
-		return analyticsServices.getPurchaseOrderData();	
+		return analyticsServices.getPurchaseOrderData(requestVO);	
 	}
 }

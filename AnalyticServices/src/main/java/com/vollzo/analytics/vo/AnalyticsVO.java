@@ -32,9 +32,6 @@ public class AnalyticsVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<Map<String, String>> severityList;
 	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private List<GridVO> dataList;
-	
 	/*
 	 * @Comments: Additional Filter for Non Conformity Dashboard
 	 * @Author: Deepak Bansal
@@ -44,5 +41,15 @@ public class AnalyticsVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<Map<String, String>> authTypeList;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> vendorList;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> budgetCodeList;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<Map<String, String>> materialTypeList;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<GridVO> dataList;
 }
