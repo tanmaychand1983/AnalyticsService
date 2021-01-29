@@ -232,11 +232,9 @@ public class AnalyticsService {
 	
 	/**
      * Returns Non Conformity Filter, Graph and Grid data by date range from Data layer.
-     * 
+     * @author Deepak Bansal
      * @methodName: getNonConformityData
-     * @param: vesselId - Vessel Id List (Required)
-     * @param startDate - Start Date (defaultValue = "")
-     * @param endDate -  End Date (defaultValue = "")
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
      * @return - AnalyticsResponseVO
      * 
      */

@@ -80,11 +80,10 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 
 	/**
      * Returns NonConformityData Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
      * @methodName: getNonConformityData
      * @param:  procedureName - Procedure Name
-     * @param: vesselId - Vessel Id List (Required)
-     * @param: startDate - Start Date (defaultValue = "")
-     * @param: endDate -  End Date (defaultValue = "")
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
      * @return - List<NonConformityEntity>
      * 
      */

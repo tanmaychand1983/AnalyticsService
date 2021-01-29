@@ -74,12 +74,10 @@ public class AnalyticsController {
 	
 	/**
      * Returns Non Conformity Filter, Graph and Grid data by date range from Service layer.
-     * 
+     * @author Deepak Bansal
      * @methodName: getNonConformityData
      * @serviceURL: http://<host:port>/analytics/nonconformity
-     * @param: vesselId - Vessel Id List (Required)
-     * @param startDate - Start Date (defaultValue = "")
-     * @param endDate -  End Date (defaultValue = "")
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
      * @return - requestVO (JSON Object)
      * 
      */
