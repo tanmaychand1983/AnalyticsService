@@ -1,6 +1,8 @@
 package com.vollzo.analytics.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,11 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.service.AnalyticsService;
+import com.vollzo.analytics.service.AnalyticsServiceTest;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
+import com.vollzo.analytics.vo.NearMissVO;
+import com.vollzo.analytics.vo.UnitsVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,6 +47,17 @@ public class AnalyticsController {
 
 	@Autowired
 	private AnalyticsService analyticsServices;
+	@Autowired
+	private AnalyticsServiceTest analyticsServicesTest;
+	
+	@GetMapping(value ="/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public  List<NearMissVO> getJSON(@RequestBody AnalyticsRequestVO requestVO) {
+		log.info(CLASS_NAME+"::Inside [getNearMissData] method!");
+		 
+		return analyticsServicesTest.getNearMissData(requestVO);
+	}	
+	
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
