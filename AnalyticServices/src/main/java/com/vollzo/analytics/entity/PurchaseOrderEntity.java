@@ -24,31 +24,31 @@ import lombok.EqualsAndHashCode;
 public class PurchaseOrderEntity extends BaseEntity{
 	
 	@Column(name = "unit_id")
-	private int unitId;
+	private Integer unitId;
 	
 	@Column(name = "unit_name")
 	private String unitName;
 	
 	@Column(name = "vessel_id")
-	private int vesselId;
+	private Integer vesselId;
 	
 	@Column(name = "vessel_name")
 	private String vesselName;
 	
 	@Column(name = "vendor_id")
-	private int vendorId;
+	private Integer vendorId;
 	
 	@Column(name = "vendor_name")
 	private String vendorName;
 	
 	@Column(name = "budget_code")
-	private int budgetCode;
+	private Integer budgetCode;
 	
 	@Column(name = "material_type")
 	private String materialType;	
 	
 	@Column(name = "requisition_order_id")
-	private int requisitionOrderId;
+	private Integer requisitionOrderId;
 	
 	@Column(name = "requisition_number")
 	private String requisitionNumber;
@@ -56,14 +56,17 @@ public class PurchaseOrderEntity extends BaseEntity{
 	@Column(name = "po_number")
 	private String poNumber;
 	
+	@Column(name = "summary")
+	private String poTitle;
+	
 	@Column(name = "status_id")
-	private String statusId;
+	private Integer statusId;
 	
 	@Column(name = "status_name")
 	private String statusName;	
 	
 	@Column(name = "total_amount")
-	private double totalAmount;	
+	private Double totalAmount;	
 	
 	@Column(name = "invoice_number")
 	private String invoiceNumber;

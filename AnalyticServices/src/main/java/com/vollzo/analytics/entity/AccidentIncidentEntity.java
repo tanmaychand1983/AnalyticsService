@@ -26,25 +26,25 @@ public class AccidentIncidentEntity extends BaseEntity{
 	private String refNumber;
 	
 	@Column(name = "unit_id")
-	private String unitId;
+	private Integer unitId;
 	
 	@Column(name = "unit_name")
 	private String unitName;
 	
 	@Column(name = "vessel_id")
-	private String vesselId;
+	private Integer vesselId;
 	
 	@Column(name = "vesselName")
 	private String vesselName;
 	
 	@Column(name = "category_id")
-	private String categoryId;
+	private Integer categoryId;
 	
 	@Column(name = "category_name")
 	private String categoryName;
 	
 	@Column(name = "status_id")
-	private String statusId;
+	private Integer statusId;
 	
 	@Column(name = "status_name")
 	private String statusName;	

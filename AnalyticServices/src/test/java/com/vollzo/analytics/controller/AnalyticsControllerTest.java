@@ -2,6 +2,9 @@ package com.vollzo.analytics.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vollzo.analytics.service.AnalyticsService;
+import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
 
@@ -21,7 +24,7 @@ import com.vollzo.analytics.vo.AnalyticsResponseVO;
 public class AnalyticsControllerTest {
 	
 	@MockBean
-	private AnalyticsService analyticsService;
+	private NearMissService nearMissService;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -35,9 +38,9 @@ public class AnalyticsControllerTest {
 		requestVO.setStartDate("2020-09-16");
 		requestVO.setEndDate("2020-09-16");
 		
-		AnalyticsResponseVO responseVO = new AnalyticsResponseVO();
+		List<AnalyticsResponseVO> responseVO = new ArrayList<>();
 		
-		Mockito.when(analyticsService.getNearMissData(requestVO)).thenReturn(responseVO);
+		//Mockito.when(nearMissService.getNearMissData(requestVO)).thenReturn(responseVO);
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/analytics/nearmiss/")
 					.accept(MediaType.APPLICATION_JSON_VALUE)

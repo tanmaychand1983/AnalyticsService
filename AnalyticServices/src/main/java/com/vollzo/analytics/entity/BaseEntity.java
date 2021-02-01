@@ -24,6 +24,6 @@ import lombok.Setter;
 @Data
 public class BaseEntity {
 	@Id
-	private int id;
+	private Integer id;
 }
  

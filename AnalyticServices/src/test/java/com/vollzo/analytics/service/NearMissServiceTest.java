@@ -15,6 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 
 @SpringBootTest
-public class AnalyticsServiceTest {
+public class NearMissServiceTest {
 
 }

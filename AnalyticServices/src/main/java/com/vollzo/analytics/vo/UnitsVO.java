@@ -21,5 +21,8 @@ public class UnitsVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<VesselVO> vesselVO;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private List<SeverityVO> severityVO;
+	
 		
 }

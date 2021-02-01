@@ -1,28 +1,20 @@
 package com.vollzo.analytics.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.vollzo.analytics.entity.NearMissEntity;
-import com.vollzo.analytics.entity.NonConformityEntity;
-import com.vollzo.analytics.entity.PurchaseOrderEntity;
-import com.vollzo.analytics.service.AnalyticsService;
-import com.vollzo.analytics.service.AnalyticsServiceTest;
+import com.vollzo.analytics.service.AccidentIncidentService;
+import com.vollzo.analytics.service.NearMissService;
+import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
 import com.vollzo.analytics.vo.NearMissVO;
-import com.vollzo.analytics.vo.UnitsVO;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,17 +38,13 @@ public class AnalyticsController {
 	private static final String CLASS_NAME = AnalyticsController.class.getName();
 
 	@Autowired
-	private AnalyticsService analyticsServices;
-	@Autowired
-	private AnalyticsServiceTest analyticsServicesTest;
+	private NearMissService nearMissService;
 	
-	@GetMapping(value ="/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public  List<NearMissVO> getJSON(@RequestBody AnalyticsRequestVO requestVO) {
-		log.info(CLASS_NAME+"::Inside [getNearMissData] method!");
-		 
-		return analyticsServicesTest.getNearMissData(requestVO);
-	}	
+	@Autowired
+	private AccidentIncidentService accidentIncidentService;
+	
+	@Autowired
+	private PurchaseOrderService purchaseOrderService;
 	
 	
 	/**
@@ -66,14 +54,14 @@ public class AnalyticsController {
      * @serviceURL: http://<host:port>/analytics/nearmiss?startDate=""&endDate=""
      * @param startDate - Start Date (defaultValue = "")
      * @param endDate -  End Date (defaultValue = "")
-     * @return - AnalyticsVO (JSON Object)
+     * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
 	@GetMapping(value ="/nearmiss", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public AnalyticsResponseVO getNearMissData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<NearMissVO> getNearMissData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getNearMissData] method!");
-		return analyticsServices.getNearMissData(requestVO);	
+		return nearMissService.getNearMissData(requestVO);	
 	}
 	
 	/**
@@ -81,14 +69,14 @@ public class AnalyticsController {
      * 
      * @methodName: getAccidentIncidentData
      * @serviceURL: http://<host:port>/analytics/accidentincident
-     * @return - AnalyticsVO (JSON Object)
+     * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
 	@GetMapping(value ="/accidentincident", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public AnalyticsResponseVO getAccidentIncidentData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getAccidentIncidentData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getAccidentIncidentData] method!");
-		return analyticsServices.getAccidentIncidentData(requestVO);	
+		return accidentIncidentService.getAccidentIncidentData(requestVO);	
 	}
 	
 	/**
@@ -97,15 +85,15 @@ public class AnalyticsController {
      * @methodName: getNonConformityData
      * @serviceURL: http://<host:port>/analytics/nonconformity
      * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
-     * @return - requestVO (JSON Object)
+     * @return -  List<AnalyticsResponseVO> (JSON Object)
      * 
      */
 	
 	@GetMapping(value ="/nonconformity", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public AnalyticsResponseVO getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getNonConformityData] method!");
-		return analyticsServices.getNonConformityData(requestVO);	
+		return null;	
 	}
 	
 	/**
@@ -114,13 +102,13 @@ public class AnalyticsController {
      * @methodName: getPurchaseOrderData
      * @serviceURL: http://<host:port>/analytics/purchaseorder
      * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
-     * @return - requestVO (JSON Object)
+     * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
 	@GetMapping(value ="/purchaseorder", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public AnalyticsResponseVO getPurchaseOrderData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getPurchaseOrderData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
-		return analyticsServices.getPurchaseOrderData(requestVO);	
+		return purchaseOrderService.getPurchaseOrderData(requestVO);	
 	}
 }
