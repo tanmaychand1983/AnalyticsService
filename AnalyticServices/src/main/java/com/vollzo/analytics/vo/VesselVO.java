@@ -1,7 +1,5 @@
 package com.vollzo.analytics.vo;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
@@ -37,5 +35,7 @@ public class VesselVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private ReferenceDataVO referenceDataVO;
 	
-	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private AuditTypeVO auditTypeVO;
+
 }

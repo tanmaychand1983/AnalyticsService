@@ -12,6 +12,8 @@ import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * {@summary}: This is the Analytics Repository implementation.
  * 
@@ -24,11 +26,13 @@ import com.vollzo.analytics.vo.AnalyticsRequestVO;
  * 
  */
 @Repository
+@Slf4j
 public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 
 	@PersistenceContext
 	EntityManager entityManager;
 
+	private static final String CLASS_NAME = AnalyticsRepositoryImpl.class.getName();
 	
 	/**
      * Returns NearMissData Filter, Graph and Grid data from DB.
@@ -78,33 +82,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		return query.getResultList();
 	}
 
-	/**
-     * Returns NonConformityData Filter, Graph and Grid data from DB.
-     * @author Deepak Bansal
-     * @methodName: getNonConformityData
-     * @param:  procedureName - Procedure Name
-     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
-     * @return - List<NonConformityEntity>
-     * 
-     */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NonConformityEntity> getNonConformityData(String procedureName, 
-			AnalyticsRequestVO requestVO) {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
-				NonConformityEntity.class);
-		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
-		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
-		
-		query.setParameter(1, requestVO.getVesselIds());
-		query.setParameter(2, requestVO.getStartDate());
-		query.setParameter(3, requestVO.getEndDate());
-		query.execute();
-		return query.getResultList();
-	}
-
-
+	
 	/**
      * Returns Purchase Order Filter, Graph and Grid data from DB.
      * 
@@ -119,6 +97,33 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName, AnalyticsRequestVO requestVO) {
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
 				PurchaseOrderEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		query.execute();
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns NonConformityData Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
+     * @methodName: getNonConformityData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @return - List<NonConformityEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<NonConformityEntity> getNonConformityData(String procedureName, 
+			AnalyticsRequestVO requestVO) {
+		log.info(CLASS_NAME+"::Inside [getNonConformityData] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				NonConformityEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);

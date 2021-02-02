@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.vollzo.analytics.service.AccidentIncidentService;
 import com.vollzo.analytics.service.NearMissService;
+import com.vollzo.analytics.service.NonConformityService;
 import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
@@ -46,6 +47,9 @@ public class AnalyticsController {
 	@Autowired
 	private PurchaseOrderService purchaseOrderService;
 	
+	@Autowired
+	private NonConformityService nonConformityService;
+	
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -79,22 +83,6 @@ public class AnalyticsController {
 		return accidentIncidentService.getAccidentIncidentData(requestVO);	
 	}
 	
-	/**
-     * Returns Non Conformity Filter, Graph and Grid data by date range from Service layer.
-     * @author Deepak Bansal
-     * @methodName: getNonConformityData
-     * @serviceURL: http://<host:port>/analytics/nonconformity
-     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
-     * @return -  List<AnalyticsResponseVO> (JSON Object)
-     * 
-     */
-	
-	@GetMapping(value ="/nonconformity", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<AnalyticsResponseVO> getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
-		log.info(CLASS_NAME+"::Inside [getNonConformityData] method!");
-		return null;	
-	}
 	
 	/**
      * Returns Purchase Order Filter, Graph and Grid data by date range and vesselIds from Service layer.
@@ -110,5 +98,22 @@ public class AnalyticsController {
 	public List<AnalyticsResponseVO> getPurchaseOrderData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
 		return purchaseOrderService.getPurchaseOrderData(requestVO);	
+	}
+	
+	/**
+     * Returns Non Conformity Filter, Graph and Grid data by date range from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getNonConformityData
+     * @serviceURL: http://<host:port>/analytics/nonconformity
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @return -  List<AnalyticsResponseVO> (JSON Object)
+     * 
+     */
+	
+	@GetMapping(value ="/nonconformity", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<AnalyticsResponseVO> getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
+		log.info(CLASS_NAME+"::Inside [getNonConformityData] Controller method!");
+		return nonConformityService.getNonConformityData(requestVO);	
 	}
 }

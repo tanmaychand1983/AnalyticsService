@@ -1,3 +1,13 @@
+/**
+ * {@summary}: This is the Reference Data VO for dashboard data.
+ * @className: ReferenceDataVO
+ * @author: Deepak Bansal
+ * @since: Feb 01, 2021
+ * @version: 1.0.0
+ * 
+ * @revision: {Name: Date: Reason:} 
+ * 
+ */
 package com.vollzo.analytics.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -48,4 +58,17 @@ public class ReferenceDataVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private Double netPay;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String portName;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String stage;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String auditDate;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String dueDate;
+	
 }
