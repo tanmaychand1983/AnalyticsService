@@ -3,6 +3,7 @@ package com.vollzo.analytics.repository;
 import java.util.List;
 
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
@@ -28,5 +29,8 @@ public interface AnalyticsRepository {
 			AnalyticsRequestVO requestVO);
 	
 	public List<NonConformityEntity> getNonConformityData(String procedureName, 
+			AnalyticsRequestVO requestVO);
+	
+	public List<MaintenanceEntity> getMaintenanceData(String procedureName, 
 			AnalyticsRequestVO requestVO);
 }

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
@@ -135,5 +136,30 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		return query.getResultList();
 	}
 
+	/**
+     * Returns Maintenace Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
+     * @methodName: getMaintenanceData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return - List<MaintenanceEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MaintenanceEntity> getMaintenanceData(String procedureName, 
+			AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getMaintenanceData] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				MaintenanceEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStatus());
+		query.execute();
+		
+		return query.getResultList();
+	}
 	
 }

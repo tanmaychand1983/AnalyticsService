@@ -71,4 +71,20 @@ public class ReferenceDataVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String dueDate;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String jobNumber;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String jobType;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String frequency;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String lastDone;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String nextDue;
+	
+	
 }

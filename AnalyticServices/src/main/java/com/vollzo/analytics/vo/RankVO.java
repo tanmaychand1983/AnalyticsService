@@ -1,8 +1,8 @@
 /**
- * {@summary}: This is the Audit Type VO for Non Conformity Dashboard.
- * @className: AuditTypeVO
+ * {@summary}: This is the Responsibility VO for Maintenance Dashboard.
+ * @className: RankVO
  * @author: Deepak Bansal
- * @since: Feb 01, 2021
+ * @since: Feb 02, 2021
  * @version: 1.0.0
  * @revision: {Name: Date: Reason:} 
  * 
@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AuditTypeVO {
+public class RankVO {
 	
-	private String AuditType;
+	private Integer rankId;
+	private String rankName;
 }

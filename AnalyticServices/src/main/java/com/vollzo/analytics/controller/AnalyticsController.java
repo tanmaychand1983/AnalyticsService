@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.vollzo.analytics.service.AccidentIncidentService;
+import com.vollzo.analytics.service.MaintenanceService;
 import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.service.NonConformityService;
 import com.vollzo.analytics.service.PurchaseOrderService;
@@ -50,6 +51,8 @@ public class AnalyticsController {
 	@Autowired
 	private NonConformityService nonConformityService;
 	
+	@Autowired
+	private MaintenanceService maintenanceService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -115,5 +118,22 @@ public class AnalyticsController {
 	public List<AnalyticsResponseVO> getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getNonConformityData] Controller method!");
 		return nonConformityService.getNonConformityData(requestVO);	
+	}
+	
+	/**
+     * Returns Maintenance Filter, Graph and Grid data by date range from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getMaintenanceData
+     * @serviceURL: http://<host:port>/analytics/maintenance
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return -  List<AnalyticsResponseVO> (JSON Object)
+     * 
+     */
+	
+	@GetMapping(value ="/maintenance", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<AnalyticsResponseVO> getMaintenanceData(@RequestBody AnalyticsRequestVO requestVO) {
+		log.info(CLASS_NAME+"::Inside [getMaintenanceData] Controller method!");
+		return maintenanceService.getMaintenanceData(requestVO);	
 	}
 }
