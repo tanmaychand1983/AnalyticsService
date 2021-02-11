@@ -168,7 +168,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
      * @author Deepak Bansal
      * @methodName: getNearMissDetails
      * @param:  procedureName - Procedure Name
-     * @param: Vessel Id (Required), refNumber (Required)
+     * @param: Nearmiss Id (Required)
      * @return - List<MaintenanceEntity>
      * 
      */

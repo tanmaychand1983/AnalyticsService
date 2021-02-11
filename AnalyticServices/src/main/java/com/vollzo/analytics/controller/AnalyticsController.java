@@ -148,7 +148,7 @@ public class AnalyticsController {
      * @author Deepak Bansal
      * @methodName: getNearMissDetails
      * @serviceURL: http://<host:port>/analytics/nearmiss
-     * @param: rVessel Id (Required), refNumber (Required)
+     * @param: Nearmiss Id (Required)
      * @return -  List<NearMissDetailsVO> (JSON Object)
      * 
      */
