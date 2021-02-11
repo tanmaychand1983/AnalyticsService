@@ -8,6 +8,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
+import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
@@ -159,6 +160,28 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		query.setParameter(2, requestVO.getStatus());
 		query.execute();
 		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Near Miss details data from DB.
+     * @author Deepak Bansal
+     * @methodName: getNearMissDetails
+     * @param:  procedureName - Procedure Name
+     * @param: Vessel Id (Required), refNumber (Required)
+     * @return - List<MaintenanceEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<NearMissDetailsEntity> getNearMissDetails(String procedureName,
+			String nearmissId){
+		log.info(CLASS_NAME+"::Inside [getNearMissDetails] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(
+				procedureName, NearMissDetailsEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		
+		query.setParameter(1,nearmissId);
 		return query.getResultList();
 	}
 	

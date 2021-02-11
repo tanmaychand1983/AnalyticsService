@@ -42,6 +42,7 @@ public class NearMissService {
      * @return - List<NearMissVO>
      * 
      */
+	
 	public  List<NearMissVO> getNearMissData(AnalyticsRequestVO requestVO){
 		List<NearMissEntity> entityList 	= repository.getNeaMissData(QueryRepository.STORPROC_DASHBOARD_NEARMISS, requestVO);
 		 

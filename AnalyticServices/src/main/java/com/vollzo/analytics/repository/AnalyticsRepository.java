@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
+import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
@@ -33,4 +34,9 @@ public interface AnalyticsRepository {
 	
 	public List<MaintenanceEntity> getMaintenanceData(String procedureName, 
 			AnalyticsRequestVO requestVO);
+	
+	//Method for near miss details
+	
+	public List<NearMissDetailsEntity> getNearMissDetails(String procedureName,
+			String nearmissId);
 }

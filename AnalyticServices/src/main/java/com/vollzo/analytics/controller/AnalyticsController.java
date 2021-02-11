@@ -5,17 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.vollzo.analytics.service.AccidentIncidentService;
 import com.vollzo.analytics.service.MaintenanceService;
+import com.vollzo.analytics.service.NearMissDetailsService;
 import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.service.NonConformityService;
 import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
+import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,6 +56,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private MaintenanceService maintenanceService;
+	
+	@Autowired
+	private NearMissDetailsService nearMissDetailsService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -135,5 +141,22 @@ public class AnalyticsController {
 	public List<AnalyticsResponseVO> getMaintenanceData(@RequestBody AnalyticsRequestVO requestVO) {
 		log.info(CLASS_NAME+"::Inside [getMaintenanceData] Controller method!");
 		return maintenanceService.getMaintenanceData(requestVO);	
+	}
+	
+	/**
+     * Returns Near Miss Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getNearMissDetails
+     * @serviceURL: http://<host:port>/analytics/nearmiss
+     * @param: rVessel Id (Required), refNumber (Required)
+     * @return -  List<NearMissDetailsVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value="/nearmiss/{nearmissId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<NearMissDetailsVO> getNearMissDetails(@PathVariable("nearmissId") String nearmissId){
+		log.info(CLASS_NAME+"::Inside [getNearMissDetails] Controller method!");
+		
+		return nearMissDetailsService.getNearMissDetails(nearmissId);
 	}
 }
