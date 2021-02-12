@@ -46,6 +46,7 @@ public class NearMissDetailsService {
 			nearMissDetailsVO.setReportedDate(entity.getReportedDate());
 			nearMissDetailsVO.setType(entity.getType());
 			nearMissDetailsVO.setCategory(entity.getCategory());
+			nearMissDetailsVO.setSubcategory(entity.getSubcategory());
 			nearMissDetailsVO.setLatitude(entity.getLatitude());
 			nearMissDetailsVO.setLongitude(entity.getLongitude());
 			nearMissDetailsVO.setPortName(entity.getPortName());

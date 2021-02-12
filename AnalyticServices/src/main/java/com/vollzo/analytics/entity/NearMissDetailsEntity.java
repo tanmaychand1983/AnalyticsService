@@ -35,6 +35,9 @@ public class NearMissDetailsEntity extends BaseEntity {
 	@Column(name = "category")
 	private String category;
 	
+	@Column(name = "subcategory")
+	private String subcategory;
+	
 	@Column(name = "latitude")
 	private String latitude;
 	
@@ -81,7 +84,7 @@ public class NearMissDetailsEntity extends BaseEntity {
     public String toString() {
         return "NearMissDetailsEntity [vesselName=" + vesselName + ", refNumber=" + refNumber + 
                 ", reportedDate=" + reportedDate + ", type=" + type   + 
-                ", category=" + category + ", latitude="+ latitude +
+                ", category=" + category + ", subcategory="+ subcategory + ", latitude="+ latitude +
                 ", longitude=" + longitude + ", portName="+ portName +
                 ", description=" + description + ", immediateAction="+ immediateAction +
                 ", rootCause=" + rootCause + ", correctiveAction=" + correctiveAction +

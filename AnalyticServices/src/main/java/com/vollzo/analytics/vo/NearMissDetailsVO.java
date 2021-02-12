@@ -36,6 +36,9 @@ public class NearMissDetailsVO {
     private String category;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
+    private String subcategory;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
     private String latitude;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)

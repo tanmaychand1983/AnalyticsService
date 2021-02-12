@@ -152,7 +152,7 @@ public class AnalyticsController {
      * @return -  List<NearMissDetailsVO> (JSON Object)
      * 
      */
-	@GetMapping(value="/nearmiss/{nearmissId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/nearmissbyid/{nearmissId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<NearMissDetailsVO> getNearMissDetails(@PathVariable("nearmissId") String nearmissId){
 		log.info(CLASS_NAME+"::Inside [getNearMissDetails] Controller method!");
