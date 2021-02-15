@@ -3,6 +3,7 @@ package com.vollzo.analytics.vo;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vollzo.analytics.util.Util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,8 @@ public class UnitsVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<SeverityVO> severityVO;
 	
+	public void setUnitDesc(String unitDesc){
+        this.unitDesc = Util.stringFormat(unitDesc);
+    }
 		
 }

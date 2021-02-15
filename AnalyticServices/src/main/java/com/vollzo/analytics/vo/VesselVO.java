@@ -1,6 +1,7 @@
 package com.vollzo.analytics.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vollzo.analytics.util.Util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,10 @@ public class VesselVO {
 	 
 	private Integer vesselId;
 	private String  vesselDesc;
+	
+	public void setVesselDesc(String vesselDesc){
+        this.vesselDesc = Util.stringFormat(vesselDesc);
+    }
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private CategoryVO categoryVO;
