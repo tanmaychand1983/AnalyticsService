@@ -20,6 +20,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ReferenceDataVO {
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Integer id;
+	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
     private String refNumber;
 	
