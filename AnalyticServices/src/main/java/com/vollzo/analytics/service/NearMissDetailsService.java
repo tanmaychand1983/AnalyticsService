@@ -11,6 +11,7 @@
 package com.vollzo.analytics.service;
 
 import java.util.ArrayList;
+import com.vollzo.analytics.util.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,26 +42,26 @@ public class NearMissDetailsService {
 
 		for(NearMissDetailsEntity entity: entityList) {
 			NearMissDetailsVO nearMissDetailsVO = new NearMissDetailsVO();
-			nearMissDetailsVO.setVesselName(entity.getVesselName());
+			nearMissDetailsVO.setVesselName(Util.stringFormat(entity.getVesselName()));
 			nearMissDetailsVO.setRefNumber(entity.getRefNumber());
 			nearMissDetailsVO.setReportedDate(entity.getReportedDate());
 			nearMissDetailsVO.setType(entity.getType());
-			nearMissDetailsVO.setCategory(entity.getCategory());
-			nearMissDetailsVO.setSubcategory(entity.getSubcategory());
+			nearMissDetailsVO.setCategory(Util.stringFormat(entity.getCategory()));
+			nearMissDetailsVO.setSubcategory(Util.stringFormat(entity.getSubcategory()));
 			nearMissDetailsVO.setLatitude(entity.getLatitude());
 			nearMissDetailsVO.setLongitude(entity.getLongitude());
-			nearMissDetailsVO.setPortName(entity.getPortName());
+			nearMissDetailsVO.setPortName(Util.stringFormat(entity.getPortName()));
 			nearMissDetailsVO.setDescription(entity.getDescription());
 			nearMissDetailsVO.setImmediateAction(entity.getImmediateAction());
 			nearMissDetailsVO.setRootCause(entity.getRootCause());
 			nearMissDetailsVO.setCorrectiveAction(entity.getCorrectiveAction());
 			nearMissDetailsVO.setPreventiveAction(entity.getPreventiveAction());
 			nearMissDetailsVO.setCreatedDate(entity.getCreatedDate());
-			nearMissDetailsVO.setMaster(entity.getMaster());
+			nearMissDetailsVO.setMaster(Util.stringFormat(entity.getMaster()));
 			nearMissDetailsVO.setReportedBy(entity.getReportedBy());
 			nearMissDetailsVO.setVerificationInstruction(entity.getVerificationInstruction());
 			nearMissDetailsVO.setVerificationDate(entity.getVerificationDate());
-			nearMissDetailsVO.setTechsuprintendentName(entity.getTechsuprintendentName());
+			nearMissDetailsVO.setTechsuprintendentName(Util.stringFormat(entity.getTechsuprintendentName()));
 			
 			nearMissDetailslist.add(nearMissDetailsVO);
 		}
