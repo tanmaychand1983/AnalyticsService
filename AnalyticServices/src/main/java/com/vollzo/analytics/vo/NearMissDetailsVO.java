@@ -10,6 +10,7 @@
 package com.vollzo.analytics.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vollzo.analytics.util.Util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -79,4 +80,26 @@ public class NearMissDetailsVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
     private String techsuprintendentName;
+	
+	public void setVesselName(String vesselName){
+        this.vesselName = Util.stringFormat(vesselName);
+    }
+	public void setCategory(String category){
+        this.category = Util.stringFormat(category);
+    }
+	public void setSubcategory(String subcategory){
+        this.subcategory = Util.stringFormat(subcategory);
+    }
+	public void setMaster(String master){
+        this.master = Util.stringFormat(master);
+    }
+	public void setReportedBy(String reportedBy){
+        this.reportedBy = Util.stringFormat(reportedBy);
+    }
+	public void setTechsuprintendentName(String techsuprintendentName){
+        this.techsuprintendentName = Util.stringFormat(techsuprintendentName);
+    }
+	public void setPortName(String portName){
+        this.portName = Util.stringFormat(portName);
+    }
 }
