@@ -7,6 +7,7 @@ import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
+import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
@@ -39,4 +40,8 @@ public interface AnalyticsRepository {
 	
 	public List<NearMissDetailsEntity> getNearMissDetails(String procedureName,
 			String nearmissId);
+	
+	//Method for purchase order details
+	public List<PurchaseOrderDetailsEntity> getPurchaseOrderDetails(String procedureName,
+			String poId);
 }

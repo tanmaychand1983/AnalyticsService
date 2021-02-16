@@ -18,4 +18,5 @@ public class QueryRepository {
 	public static final String STORPROC_DASHBOARD_PURORD 	= 	"sp_get_dashboard_purchaseorder";
 	public static final String STORPROC_DASHBOARD_MAINTENANCE = "sp_get_dashboard_maintenance";
 	public static final String STORPROC_DASHBOARD_NEARMISS_DETAILS = "sp_get_dashboard_nearmiss_details";
+	public static final String STORPROC_DASHBOARD_PO_DETAILS = "sp_get_dashboard_po_details";
 }

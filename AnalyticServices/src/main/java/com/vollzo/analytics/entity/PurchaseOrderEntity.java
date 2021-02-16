@@ -77,10 +77,9 @@ public class PurchaseOrderEntity extends BaseEntity{
 	@Column(name = "net_pay")
 	private Double netPay;
 	
-	
 	@Override
     public String toString() {
-        return "NearMissEntity [unitId=" + unitId + ", unitName=" + unitName + 
+        return "PurchaseOrderEntity [unitId=" + unitId + ", unitName=" + unitName + 
                 ", vesselId=" + vesselId + ", vesselName=" + vesselName   + 
                 ", vendorId=" + vendorId + ", vendorName="+ vendorName +
                 ", statusId=" + statusId + ", statusName="+ statusName +

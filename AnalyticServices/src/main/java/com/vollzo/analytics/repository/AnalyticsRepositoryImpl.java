@@ -11,6 +11,7 @@ import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
+import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
@@ -169,7 +170,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
      * @methodName: getNearMissDetails
      * @param:  procedureName - Procedure Name
      * @param: Nearmiss Id (Required)
-     * @return - List<MaintenanceEntity>
+     * @return - List<NearMissDetailsEntity>
      * 
      */
 	@SuppressWarnings("unchecked")
@@ -182,6 +183,28 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		
 		query.setParameter(1,nearmissId);
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns PO details data from DB.
+     * @author Deepak Bansal
+     * @methodName: getPurchaseOrderDetails
+     * @param:  procedureName - Procedure Name
+     * @param: PO Id (Required)
+     * @return - List<PurchaseOrderDetailsEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PurchaseOrderDetailsEntity> getPurchaseOrderDetails(String procedureName,
+			String poId){
+		log.info(CLASS_NAME+"::Inside [getPurchaseOrderDetails] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(
+				procedureName, PurchaseOrderDetailsEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1,poId);
+		
 		return query.getResultList();
 	}
 	

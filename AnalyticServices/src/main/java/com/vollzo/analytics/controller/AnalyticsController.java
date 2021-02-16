@@ -15,11 +15,14 @@ import com.vollzo.analytics.service.MaintenanceService;
 import com.vollzo.analytics.service.NearMissDetailsService;
 import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.service.NonConformityService;
+import com.vollzo.analytics.service.PurchaseOrderDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
 import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
+import com.vollzo.analytics.vo.PurchaseOrderDetailsVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -59,6 +62,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private NearMissDetailsService nearMissDetailsService;
+	
+	@Autowired
+	private PurchaseOrderDetailsService purchaseOrderDetailsService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -158,5 +164,22 @@ public class AnalyticsController {
 		log.info(CLASS_NAME+"::Inside [getNearMissDetails] Controller method!");
 		
 		return nearMissDetailsService.getNearMissDetails(nearmissId);
+	}
+	
+	/**
+     * Returns Purchase Order Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getPurchaseOrderDetails
+     * @serviceURL: http://<host:port>/analytics/purchaseorder/{poid}
+     * @param: PO Id (Required)
+     * @return -  List<PurchaseOrderDetailsVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value="/purchaseorder/{poid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<PurchaseOrderDetailsVO> getPurchaseOrderDetails(@PathVariable("poid") String poId){
+		log.info(CLASS_NAME+"::Inside [getPurchaseOrderDetails] Controller method!");
+		
+		return purchaseOrderDetailsService.getPurchaseOrderDetails(poId);
 	}
 }
