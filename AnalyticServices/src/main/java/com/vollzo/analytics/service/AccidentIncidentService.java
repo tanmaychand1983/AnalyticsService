@@ -78,6 +78,7 @@ public class AccidentIncidentService {
 			refVO.setReportedBy(entity.getReportedBy());
 			refVO.setReportedDate(entity.getReportedDate());
 			refVO.setTitle(entity.getTitle());
+			refVO.setId(entity.getId());
 			
 			vesselVO.setVesselId(entity.getVesselId());
 			vesselVO.setVesselDesc(entity.getVesselName());

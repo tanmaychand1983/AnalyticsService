@@ -89,6 +89,7 @@ public class PurchaseOrderService {
 			vesselVO.setBudgetCodeVO(budgetCodeVO);
 			
 			refVO.setRequisitionNumber(entity.getRequisitionNumber());
+			refVO.setId(entity.getId());
 			refVO.setPoNumber(entity.getPoNumber());
 			refVO.setPoTitle(entity.getPoTitle());
 			refVO.setAccountCode(entity.getBudgetCode());
