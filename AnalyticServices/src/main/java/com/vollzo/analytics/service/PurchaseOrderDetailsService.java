@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
-import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.repository.BaseRepository;
 import com.vollzo.analytics.repository.QueryRepository;
 import com.vollzo.analytics.vo.PurchaseOrderDetailsVO;

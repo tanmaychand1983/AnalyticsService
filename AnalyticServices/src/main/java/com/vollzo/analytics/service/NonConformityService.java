@@ -75,6 +75,7 @@ public class NonConformityService {
 			referenceDataVO.setStage(entity.getStage());
 			referenceDataVO.setAuditDate(entity.getAuditDate());
 			referenceDataVO.setDueDate(entity.getDueDate());
+			referenceDataVO.setId(entity.getId());
 			
 			vesselVO.setVesselId(entity.getVesselId());
 			vesselVO.setVesselDesc(entity.getVesselName());

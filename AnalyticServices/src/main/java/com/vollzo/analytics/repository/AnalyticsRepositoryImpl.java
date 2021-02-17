@@ -10,6 +10,7 @@ import com.vollzo.analytics.entity.AccidentIncidentEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
+import com.vollzo.analytics.entity.NonConformityDetailsEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
@@ -204,6 +205,30 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 				procedureName, PurchaseOrderDetailsEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.setParameter(1,poId);
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Non Conformity details data from DB.
+     * @author Deepak Bansal
+     * @methodName: getNonConformityDetails
+     * @param:  procedureName - Procedure Name
+     * @param: PO Id (Required)
+     * @return - List<NonConformityDetailsEntity>
+     * 
+     */
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<NonConformityDetailsEntity> getNonConformityDetails(String procedureName,
+			String auditncid){
+		log.info(CLASS_NAME+"::Inside [getNonConformityDetails] Repository method!");
+		
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(
+				procedureName, NonConformityDetailsEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1,auditncid);
 		
 		return query.getResultList();
 	}
