@@ -62,9 +62,13 @@ public class PortStateControlDetailsService {
 				inspectionVO.setOtherMou(entity.getOtherMou());
 				inspectionVO.setMasterName(entity.getMasterName());
 				inspectionVO.setChiefengineerName(entity.getChiefengineerName());
+				
 				deficienciesVO = new DeficienciesVO();
 				deficienciesVO.setDueDate(entity.getDueDate());
 				deficienciesVO.setNatureofDeficiency(entity.getNatureofDeficiency());
+				deficienciesVO.setDefectCode(entity.getDefectCode());
+				deficienciesVO.setActionCodes(entity.getActionCodes());
+				deficienciesVO.setDeficiencieStatus(entity.getDeficiencieStatus());
 				deficienciesVOList.add(deficienciesVO);
 				inspectionVO.setDeficienciesVO(deficienciesVOList);
 				inspectionMap.put(inspectionNumber, deficienciesVOList);
@@ -73,6 +77,9 @@ public class PortStateControlDetailsService {
 				deficienciesVO = new DeficienciesVO();
 				deficienciesVO.setDueDate(entity.getDueDate());
 				deficienciesVO.setNatureofDeficiency(entity.getNatureofDeficiency());
+				deficienciesVO.setDefectCode(entity.getDefectCode());
+				deficienciesVO.setActionCodes(entity.getActionCodes());
+				deficienciesVO.setDeficiencieStatus(entity.getDeficiencieStatus());
 				deficienciesVOList.add(deficienciesVO);
 				inspectionVO.setDeficienciesVO(deficienciesVOList);
 			}

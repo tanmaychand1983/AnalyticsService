@@ -58,14 +58,4 @@ public class PortStateControlDetailsEntity extends BaseEntity {
 	@Column(name = "deficiencie_status")
 	private String deficiencieStatus;
 	
-//	@Override
-//    public String toString() {
-//		 return "PortStateControlDetailsEntity [inspectionNumber=" + inspectionNumber + ", inspectionDate=" + inspectionDate +
-//				 ", portName=" + portName + ", mou="+ mou +
-//				 ", otherMou=" + otherMou + ", masterName="+ masterName +
-//				 ", chiefengineerName=" + chiefengineerName + ", dueDate="+ dueDate +
-//				 ", natureofDeficiency=" + natureofDeficiency + ", defectCode="+ defectCode +
-//				 ", actionCodes=" + actionCodes + ", deficiencieStatus="+ deficiencieStatus +
-//				 "]";
-//	}
 }
