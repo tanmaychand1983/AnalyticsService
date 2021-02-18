@@ -39,25 +39,21 @@ public class PortStateControlDetailsService {
 	public List<PortStateControlDetailsVO> getPortStateControlDetails(String inspectionid){
 		
 		log.info(CLASS_NAME+"::Inside [getPortStateControlDetails] Service method!");
-		
 		List<PortStateControlDetailsEntity> entitylist = repository.getPortStateControlDetails(
 							QueryRepository.STORPROC_DASHBOARD_INSPECTION_DETAILS, inspectionid);
-		Map<String, String> inspectionMap 	= new HashMap<>();
+		Map<String, List<DeficienciesVO>> inspectionMap 	= new HashMap<>();
 		
 		List<PortStateControlDetailsVO> portStateControlDetailsList = new ArrayList<>();
 		
 		List<DeficienciesVO> deficienciesVOList = new ArrayList<DeficienciesVO>();
-		
+		InspectionVO inspectionVO = null;
+		PortStateControlDetailsVO portStateControlDetailsVO = new PortStateControlDetailsVO();
 		for(PortStateControlDetailsEntity entity: entitylist) {
 			String inspectionNumber = entity.getInspectionNumber();
-			
-			PortStateControlDetailsVO portStateControlDetailsVO = new PortStateControlDetailsVO();
-			
+			DeficienciesVO deficienciesVO = null;
 			if(!inspectionMap.containsKey(inspectionNumber)) {
-				InspectionVO inspectionVO = new InspectionVO();
+				inspectionVO = new InspectionVO();
 				deficienciesVOList = new ArrayList<DeficienciesVO>();
-				
-				inspectionMap.put(inspectionNumber, new String());
 				
 				inspectionVO.setInspectionNumber(inspectionNumber);
 				inspectionVO.setInspectionDate(entity.getInspectionDate());
@@ -66,22 +62,24 @@ public class PortStateControlDetailsService {
 				inspectionVO.setOtherMou(entity.getOtherMou());
 				inspectionVO.setMasterName(entity.getMasterName());
 				inspectionVO.setChiefengineerName(entity.getChiefengineerName());
-				
+				deficienciesVO = new DeficienciesVO();
+				deficienciesVO.setDueDate(entity.getDueDate());
+				deficienciesVO.setNatureofDeficiency(entity.getNatureofDeficiency());
+				deficienciesVOList.add(deficienciesVO);
 				inspectionVO.setDeficienciesVO(deficienciesVOList);
-				
-				portStateControlDetailsVO.setInspectionVO(inspectionVO);
-				portStateControlDetailsList.add(portStateControlDetailsVO);
+				inspectionMap.put(inspectionNumber, deficienciesVOList);
 			}else {
-				
+				deficienciesVOList = inspectionMap.get(inspectionNumber);
+				deficienciesVO = new DeficienciesVO();
+				deficienciesVO.setDueDate(entity.getDueDate());
+				deficienciesVO.setNatureofDeficiency(entity.getNatureofDeficiency());
+				deficienciesVOList.add(deficienciesVO);
+				inspectionVO.setDeficienciesVO(deficienciesVOList);
 			}
-			DeficienciesVO deficienciesVO = new DeficienciesVO();
-			deficienciesVO.setDueDate(entity.getDueDate());
-			deficienciesVO.setNatureofDeficiency(entity.getNatureofDeficiency());
-			deficienciesVOList.add(deficienciesVO);
-
-			inspectionMap.get(inspectionNumber);
+			portStateControlDetailsVO.setInspectionVO(inspectionVO);
+			
 		}
-		
+		portStateControlDetailsList.add(portStateControlDetailsVO);
 		return portStateControlDetailsList;
 	}
 	
