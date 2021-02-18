@@ -16,13 +16,16 @@ import com.vollzo.analytics.service.NearMissDetailsService;
 import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.service.NonConformityDetailsService;
 import com.vollzo.analytics.service.NonConformityService;
+import com.vollzo.analytics.service.PortStateControlDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
+import com.vollzo.analytics.vo.InspectionVO;
 import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import com.vollzo.analytics.vo.NonConformityDetailsVO;
+import com.vollzo.analytics.vo.PortStateControlDetailsVO;
 import com.vollzo.analytics.vo.PurchaseOrderDetailsVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -70,6 +73,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private NonConformityDetailsService nonConformityDetailsService;
+	
+	@Autowired
+	private PortStateControlDetailsService portStateControlDetailsService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -206,4 +212,20 @@ public class AnalyticsController {
 		return nonConformityDetailsService.getNonConformityDetails(auditncid);
 	}
 	
+	/**
+     * Returns Port State Control Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getPortStateControlDetails
+     * @serviceURL: http://<host:port>/analytics/portstatecontrolbyid/{inspectionid}
+     * @param: inspectionid (Required)
+     * @return -  List<NonConformityDetailsVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value="/portstatecontrolbyid/{inspectionid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<PortStateControlDetailsVO> getPortStateControlDetails(@PathVariable("inspectionid") String inspectionid){
+		log.info(CLASS_NAME+"::Inside [getPortStateControlDetails] Controller method!");
+		
+		return portStateControlDetailsService.getPortStateControlDetails(inspectionid);
+	}
 }

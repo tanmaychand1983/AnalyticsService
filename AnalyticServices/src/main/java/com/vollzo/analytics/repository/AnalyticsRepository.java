@@ -8,6 +8,7 @@ import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityDetailsEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
+import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
@@ -49,4 +50,8 @@ public interface AnalyticsRepository {
 	//Method for Non Conformity details
 		public List<NonConformityDetailsEntity> getNonConformityDetails(String procedureName,
 				String auditncid);
+		
+	//Method for Port State Control details
+		public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
+				String inspectionid);
 }

@@ -12,6 +12,7 @@ import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityDetailsEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
+import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
@@ -233,4 +234,27 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		return query.getResultList();
 	}
 	
+	/**
+     * Returns Port State Control details data from DB.
+     * @author Deepak Bansal
+     * @methodName: getPortStateControlDetails
+     * @param:  procedureName - Procedure Name
+     * @param: inspectionid (Required)
+     * @return - List<PortStateControlDetailsEntity>
+     * 
+     */
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
+			String inspectionid){
+		log.info(CLASS_NAME+"::Inside [getPortStateControlDetails] Repository method!");
+		
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(
+				procedureName, PortStateControlDetailsEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1,inspectionid);
+		
+		return query.getResultList();
+	}
 }

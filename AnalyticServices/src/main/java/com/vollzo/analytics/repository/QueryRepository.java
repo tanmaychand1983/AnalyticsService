@@ -20,4 +20,6 @@ public class QueryRepository {
 	public static final String STORPROC_DASHBOARD_NEARMISS_DETAILS = "sp_get_dashboard_nearmiss_details";
 	public static final String STORPROC_DASHBOARD_PO_DETAILS = "sp_get_dashboard_po_details";
 	public static final String STORPROC_DASHBOARD_NONCONF_DETAILS 	= 	"sp_get_dashboard_nonconfirmity_details";
+	public static final String STORPROC_DASHBOARD_INSPECTION_DETAILS = "sp_get_dashboard_inspection_details";
+	public static final String STORPROC_DASHBOARD_DEFICIENCIED_DETAILS = "sp_get_dashboard_deficiencies_details";
 }
