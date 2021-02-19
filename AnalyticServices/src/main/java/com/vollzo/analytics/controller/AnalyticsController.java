@@ -87,10 +87,17 @@ public class AnalyticsController {
      * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
-	@GetMapping(value ="/nearmiss", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/nearmiss/{vesselIds}/{startDate}/{endDate}")
 	@ResponseBody
-	public List<NearMissVO> getNearMissData(@RequestBody AnalyticsRequestVO requestVO) {
-		log.info(CLASS_NAME+"::Inside [getNearMissData] method!");
+	public List<NearMissVO> getNearMissData(@PathVariable String vesselIds,
+			                                @PathVariable String startDate,
+			                                @PathVariable String endDate) {
+		log.info(CLASS_NAME+"::Inside [getNearMissData] method#######!");
+		System.out.println("#########################Hello##############");
+		 AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		 requestVO.setVesselIds(vesselIds);
+		 requestVO.setStartDate(startDate);
+		 requestVO.setEndDate(endDate);
 		return nearMissService.getNearMissData(requestVO);	
 	}
 	
@@ -102,10 +109,17 @@ public class AnalyticsController {
      * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
-	@GetMapping(value ="/accidentincident", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/accidentincident/{vesselIds}/{startDate}/{endDate}")
 	@ResponseBody
-	public List<AnalyticsResponseVO> getAccidentIncidentData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getAccidentIncidentData(@PathVariable String vesselIds,
+												             @PathVariable String startDate,
+												             @PathVariable String endDate) {
+		
 		log.info(CLASS_NAME+"::Inside [getAccidentIncidentData] method!");
+		 AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		 requestVO.setVesselIds(vesselIds);
+		 requestVO.setStartDate(startDate);
+		 requestVO.setEndDate(endDate);
 		return accidentIncidentService.getAccidentIncidentData(requestVO);	
 	}
 	
