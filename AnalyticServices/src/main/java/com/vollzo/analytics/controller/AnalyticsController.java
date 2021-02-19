@@ -1,6 +1,9 @@
 package com.vollzo.analytics.controller;
 
 import java.util.List;
+
+import javax.sound.sampled.Port;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +20,7 @@ import com.vollzo.analytics.service.NearMissService;
 import com.vollzo.analytics.service.NonConformityDetailsService;
 import com.vollzo.analytics.service.NonConformityService;
 import com.vollzo.analytics.service.PortStateControlDetailsService;
+import com.vollzo.analytics.service.PortStateControlService;
 import com.vollzo.analytics.service.PurchaseOrderDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
@@ -26,6 +30,7 @@ import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import com.vollzo.analytics.vo.NonConformityDetailsVO;
 import com.vollzo.analytics.vo.PortStateControlDetailsVO;
+import com.vollzo.analytics.vo.PortStateControlVO;
 import com.vollzo.analytics.vo.PurchaseOrderDetailsVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +81,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private PortStateControlDetailsService portStateControlDetailsService;
+	
+	@Autowired
+	private PortStateControlService portStateControlService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -241,5 +249,29 @@ public class AnalyticsController {
 		log.info(CLASS_NAME+"::Inside [getPortStateControlDetails] Controller method!");
 		
 		return portStateControlDetailsService.getPortStateControlDetails(inspectionid);
+	}
+	
+	/**
+     * Returns Port State Control Filter, Graph and Grid data 
+     * by date range from Service layer.
+     * @methodName: getPortStateData
+     * @serviceURL: http://<host:port>/analytics/nearmiss?startDate=""&endDate=""
+     * @param startDate - Start Date (defaultValue = "")
+     * @param endDate -  End Date (defaultValue = "")
+     * @return - List<AnalyticsResponseVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value ="/portstatecontrol/{vesselIds}/{startDate}/{endDate}")
+	@ResponseBody
+	public List<PortStateControlVO> getPortStateData(@PathVariable String vesselIds,
+            @PathVariable String startDate,
+            @PathVariable String endDate){
+		log.info(CLASS_NAME+"::Inside [getPortStateData] Controller !");
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		 requestVO.setVesselIds(vesselIds);
+		 requestVO.setStartDate(startDate);
+		 requestVO.setEndDate(endDate);
+		 
+		return portStateControlService.getPortStateData(requestVO);
 	}
 }

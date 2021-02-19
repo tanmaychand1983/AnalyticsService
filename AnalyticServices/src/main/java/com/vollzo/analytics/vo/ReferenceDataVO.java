@@ -90,5 +90,32 @@ public class ReferenceDataVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String nextDue;
 	
+	//For Port State Control Dashboard
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String inspectionId;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String age;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String inspectionNumber;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String inspectionDate;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String mou;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String inspectorName;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String inspectionStatus;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String deficiencieStatus;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String deficiencieCount;
 	
 }

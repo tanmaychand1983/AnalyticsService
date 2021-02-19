@@ -13,6 +13,7 @@ import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityDetailsEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
+import com.vollzo.analytics.entity.PortStateControlEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
@@ -257,4 +258,35 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		
 		return query.getResultList();
 	}
+	
+	/**
+     * Returns Port State Control Filter, Graph and Grid data from DB.
+     * @methodName: getPortStateData
+     * @param:  procedureName - Procedure Name
+     * @param: vesselId - Vessel Id List (Required)
+     * @param: startDate - Start Date (defaultValue = "")
+     * @param: endDate -  End Date (defaultValue = "")
+     * @return - List<PortStateControlEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PortStateControlEntity> getPortStateData(String procedureName, 
+			AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getPortStateData] Repository method!");
+		
+		StoredProcedureQuery  query = entityManager.createStoredProcedureQuery(procedureName, PortStateControlEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
+		query.execute();
+		
+		return query.getResultList();
+	}
 }
+

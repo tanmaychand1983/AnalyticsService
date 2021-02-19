@@ -9,6 +9,7 @@ import com.vollzo.analytics.entity.NearMissEntity;
 import com.vollzo.analytics.entity.NonConformityDetailsEntity;
 import com.vollzo.analytics.entity.NonConformityEntity;
 import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
+import com.vollzo.analytics.entity.PortStateControlEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
@@ -25,33 +26,42 @@ import com.vollzo.analytics.vo.AnalyticsRequestVO;
  * 
  */
 public interface AnalyticsRepository {
-	public List<NearMissEntity> getNeaMissData(String procedureName, 
-			AnalyticsRequestVO requestVO);
-	public List<AccidentIncidentEntity> getAccidentIncidentData(String procedureName, 
-			AnalyticsRequestVO requestVO);
-	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName,
-			AnalyticsRequestVO requestVO);
-	
-	public List<NonConformityEntity> getNonConformityData(String procedureName, 
-			AnalyticsRequestVO requestVO);
-	
 	public List<MaintenanceEntity> getMaintenanceData(String procedureName, 
 			AnalyticsRequestVO requestVO);
 	
-	//Method for near miss details
+	//For Near Miss Dashboard
+	public List<NearMissEntity> getNeaMissData(String procedureName, 
+			AnalyticsRequestVO requestVO);
 	
+	//For Accident-Incident Dashboard
+	public List<AccidentIncidentEntity> getAccidentIncidentData(String procedureName, 
+			AnalyticsRequestVO requestVO);
+	
+	//Method for near miss & Accident-Incident details
 	public List<NearMissDetailsEntity> getNearMissDetails(String procedureName,
 			String nearmissId);
 	
-	//Method for purchase order details
+	//For Purchase Order Dashboard 
+	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName,
+			AnalyticsRequestVO requestVO);
+	
+	//For purchase order details
 	public List<PurchaseOrderDetailsEntity> getPurchaseOrderDetails(String procedureName,
 			String poId);
 	
-	//Method for Non Conformity details
-		public List<NonConformityDetailsEntity> getNonConformityDetails(String procedureName,
+	//For Non Conformity Dashboard
+	public List<NonConformityEntity> getNonConformityData(String procedureName, 
+			AnalyticsRequestVO requestVO);
+	
+	//For Non Conformity details
+	public List<NonConformityDetailsEntity> getNonConformityDetails(String procedureName,
 				String auditncid);
 		
-	//Method for Port State Control details
-		public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
+	//For Port State Control details
+	public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
 				String inspectionid);
+	
+	//For Port State Control Dashboard
+	public List<PortStateControlEntity> getPortStateData(String procedureName, 
+			AnalyticsRequestVO requestVO);	
 }

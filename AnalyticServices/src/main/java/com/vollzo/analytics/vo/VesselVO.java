@@ -45,5 +45,8 @@ public class VesselVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private RankVO rankVO;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private MouVO mouVO;
 
 }
