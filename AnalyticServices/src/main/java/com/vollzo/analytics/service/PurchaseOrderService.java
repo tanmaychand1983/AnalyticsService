@@ -92,6 +92,7 @@ public class PurchaseOrderService {
 			refVO.setId(entity.getId());
 			refVO.setPoNumber(entity.getPoNumber());
 			refVO.setPoTitle(entity.getPoTitle());
+			refVO.setPoDate(entity.getPoDate());
 			refVO.setAccountCode(entity.getBudgetCode());
 			refVO.setTotalAmount(entity.getTotalAmount());
 			refVO.setInvoiceNo(entity.getInvoiceNumber());

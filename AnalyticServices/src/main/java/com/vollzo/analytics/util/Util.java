@@ -1,5 +1,9 @@
 package com.vollzo.analytics.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Util {
 	public static String nullCheck(Object val) {
 
@@ -39,6 +43,34 @@ public class Util {
 			}
 			text = String.valueOf(charArray);
 			return text;
+		}
+	}
+	
+	/**
+	 * Format the Date .
+	 * @methodName: dateFormat
+	 * @param fromdate - Input String
+	 * @param  fromDateFormat - Input String
+	 * @param  toDateFormat - Input String
+	 * @return - String
+	 * @author Deepak Bansal
+	 * @since: Feb 20, 2021
+	 */
+	public static String dateFormat(String date, String fromDateFormat) {
+		String toDate = "";
+		String toDateFormat="dd/MM/yyyy";
+		try {
+			DateFormat fromDateFormatObj = new SimpleDateFormat(fromDateFormat);
+			fromDateFormatObj.setLenient(false);
+			Date fromDate = fromDateFormatObj.parse(date);
+			
+			toDate = new SimpleDateFormat(toDateFormat).format(fromDate);
+			return toDate;
+		} catch (Exception e) {
+			// TODO: handle exception
+			String error = "Input date and date format Mismathched";
+			return e.getMessage()+" : "+error;
+			
 		}
 	}
 }

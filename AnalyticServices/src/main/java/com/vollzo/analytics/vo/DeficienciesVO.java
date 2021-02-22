@@ -40,4 +40,8 @@ public class DeficienciesVO {
 	public void setDeficiencieStatus(String deficiencieStatus){
         this.deficiencieStatus = Util.stringFormat(deficiencieStatus);
     }
+	
+	public void setDueDate(String dueDate){
+        this.dueDate = Util.dateFormat(dueDate,"yyyy-MM-dd");
+    }
 }

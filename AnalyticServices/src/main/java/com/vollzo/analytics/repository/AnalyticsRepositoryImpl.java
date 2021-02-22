@@ -82,7 +82,13 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 	public List<AccidentIncidentEntity> getAccidentIncidentData(String procedureName, AnalyticsRequestVO requestVO) {
 		StoredProcedureQuery  query = entityManager.createStoredProcedureQuery(procedureName, AccidentIncidentEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
 		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
 		query.execute();
 		
 		return query.getResultList();

@@ -141,10 +141,17 @@ public class AnalyticsController {
      * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
-	@GetMapping(value ="/purchaseorder", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/purchaseorder/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<AnalyticsResponseVO> getPurchaseOrderData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getPurchaseOrderData(@PathVariable String vesselIds,
+											            @PathVariable String startDate,
+											            @PathVariable String endDate) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
+		
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setVesselIds(vesselIds);
+		requestVO.setStartDate(startDate);
+		requestVO.setEndDate(endDate);
 		return purchaseOrderService.getPurchaseOrderData(requestVO);	
 	}
 	
@@ -158,10 +165,17 @@ public class AnalyticsController {
      * 
      */
 	
-	@GetMapping(value ="/nonconformity", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/nonconformity/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<AnalyticsResponseVO> getNonConformityData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getNonConformityData(@PathVariable String vesselIds,
+											            @PathVariable String startDate,
+											            @PathVariable String endDate
+														) {
 		log.info(CLASS_NAME+"::Inside [getNonConformityData] Controller method!");
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setVesselIds(vesselIds);
+		requestVO.setStartDate(startDate);
+		requestVO.setEndDate(endDate);
 		return nonConformityService.getNonConformityData(requestVO);	
 	}
 	

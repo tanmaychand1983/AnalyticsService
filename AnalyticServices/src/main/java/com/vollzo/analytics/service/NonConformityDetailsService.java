@@ -47,6 +47,7 @@ public class NonConformityDetailsService {
 			
 			nonConformityDetailsVO.setDocumentReference(entity.getDocumentReference());
 			nonConformityDetailsVO.setThetisCode(entity.getThetisCode());
+			nonConformityDetailsVO.setDueDate(entity.getDueDate());
 			nonConformityDetailsVO.setSummary(entity.getSummary());
 			nonConformityDetailsVO.setImmediateAction(entity.getImmediateAction());
 			nonConformityDetailsVO.setRootCause(entity.getRootCause());

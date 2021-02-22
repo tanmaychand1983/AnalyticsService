@@ -10,6 +10,7 @@
 package com.vollzo.analytics.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vollzo.analytics.util.Util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,5 +53,16 @@ public class NonConformityDetailsVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
     private String closeoutRemarks;
-
+	
+	public void setDueDate(String dueDate){
+        this.dueDate = Util.dateFormat(dueDate,"yyyy-MM-dd");
+    }
+	
+	public void setCompletionDate(String completionDate){
+        this.completionDate = Util.dateFormat(completionDate,"yyyy-MM-dd");
+    }
+	
+	public void setCloseoutDate(String closeoutDate){
+        this.closeoutDate = Util.dateFormat(closeoutDate,"yyyy-MM-dd");
+    }
 }

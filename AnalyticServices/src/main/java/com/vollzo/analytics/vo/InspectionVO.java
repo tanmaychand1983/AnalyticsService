@@ -60,4 +60,8 @@ public class InspectionVO {
         this.masterName = Util.stringFormat(masterName);
     }
 	
+	public void setInspectionDate(String inspectionDate){
+        this.inspectionDate = Util.dateFormat(inspectionDate,"yyyy-MM-dd");
+    }
+	
 }

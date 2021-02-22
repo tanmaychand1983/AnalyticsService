@@ -102,4 +102,13 @@ public class NearMissDetailsVO {
 	public void setPortName(String portName){
         this.portName = Util.stringFormat(portName);
     }
+	public void setReportedDate(String reportedDate){
+        this.reportedDate = Util.dateFormat(reportedDate,"yyyy-MM-dd");
+    }
+	public void setCreatedDate(String createdDate){
+        this.createdDate = Util.dateFormat(createdDate,"yyyy-MM-dd HH:mm:ss");
+    }
+	public void setVerificationDate(String verificationDate){
+        this.verificationDate = Util.dateFormat(verificationDate,"yyyy-MM-dd");
+    }
 }

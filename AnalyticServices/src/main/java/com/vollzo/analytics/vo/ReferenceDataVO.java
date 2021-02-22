@@ -11,6 +11,7 @@
 package com.vollzo.analytics.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vollzo.analytics.util.Util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +42,9 @@ public class ReferenceDataVO {
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String poNumber;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String poDate;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String poTitle;
@@ -118,4 +122,23 @@ public class ReferenceDataVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String deficiencieCount;
 	
+	public void setReportedDate(String reportedDate){
+        this.reportedDate = Util.dateFormat(reportedDate,"yyyy-MM-dd");
+    }
+	
+	public void setAuditDate(String auditDate){
+        this.auditDate = Util.dateFormat(auditDate,"yyyy-MM-dd");
+    }
+	
+	public void setDueDate(String dueDate){
+        this.dueDate = Util.dateFormat(dueDate,"yyyy-MM-dd");
+    }
+	
+	public void setInspectionDate(String inspectionDate){
+        this.inspectionDate = Util.dateFormat(inspectionDate,"yyyy-MM-dd");
+    }
+	
+	public void setPoDate(String poDate){
+        this.poDate = Util.dateFormat(poDate,"yyyy-MM-dd");
+    }
 }

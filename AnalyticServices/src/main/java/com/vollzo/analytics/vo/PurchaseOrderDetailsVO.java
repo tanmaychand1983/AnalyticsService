@@ -86,5 +86,11 @@ public class PurchaseOrderDetailsVO {
         this.poType = Util.stringFormat(poType);
     }
 	
+	public void setPoDate(String poDate){
+        this.poDate = Util.dateFormat(poDate,"yyyy-MM-dd");
+    }
 	
+	public void setExpectedReadinessDate(String expectedReadinessDate){
+        this.expectedReadinessDate = Util.dateFormat(expectedReadinessDate,"yyyy-MM-dd");
+    }
 }
