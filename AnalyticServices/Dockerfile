@@ -1,5 +1,4 @@
 FROM adoptopenjdk/openjdk11:ubi
-EXPOSE 8080
 RUN mkdir /usr/app
 COPY ./target/AnalyticServices-1.0.jar /usr/app
 WORKDIR /usr/app

@@ -101,12 +101,19 @@ public class AnalyticsController {
 			                                @PathVariable String startDate,
 			                                @PathVariable String endDate) {
 		log.info(CLASS_NAME+"::Inside [getNearMissData] method#######!");
-		System.out.println("#########################Hello##############");
+		System.out.println("[getNearMissData]########NearMiss##########vesselIds:"+vesselIds+"##StartDate:"+startDate+"##EndDate:"+endDate);
 		 AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
 		 requestVO.setVesselIds(vesselIds);
 		 requestVO.setStartDate(startDate);
 		 requestVO.setEndDate(endDate);
-		return nearMissService.getNearMissData(requestVO);	
+		 List<NearMissVO> listObj = nearMissService.getNearMissData(requestVO);	
+		 if(listObj != null) {
+			 System.out.println("[getNearMissData]########NearMiss##########"+listObj.size()); 
+		 }else {
+			 System.out.println("[getNearMissData]########No Data Return##########"); 
+		 }
+		
+		return listObj;
 	}
 	
 	/**
@@ -124,11 +131,19 @@ public class AnalyticsController {
 												             @PathVariable String endDate) {
 		
 		log.info(CLASS_NAME+"::Inside [getAccidentIncidentData] method!");
+		System.out.println("########AccidentIncident##########vesselIds:"+vesselIds+"##StartDate:"+startDate+"##EndDate:"+endDate);
 		 AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
 		 requestVO.setVesselIds(vesselIds);
 		 requestVO.setStartDate(startDate);
 		 requestVO.setEndDate(endDate);
-		return accidentIncidentService.getAccidentIncidentData(requestVO);	
+		 List<AnalyticsResponseVO> listObj = accidentIncidentService.getAccidentIncidentData(requestVO);	
+		 if(listObj != null) {
+			 System.out.println("[getAccidentIncidentData]########AccidentIncident##########"+listObj.size()); 
+		 }else {
+			 System.out.println("[getAccidentIncidentData]########No Data Return##########"); 
+		 }
+		
+		return listObj;		 
 	}
 	
 	
@@ -147,7 +162,7 @@ public class AnalyticsController {
 											            @PathVariable String startDate,
 											            @PathVariable String endDate) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
-		
+		System.out.println("########PurchaseOrder##########vesselIds:"+vesselIds+"##StartDate:"+startDate+"##EndDate:"+endDate);
 		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
 		requestVO.setVesselIds(vesselIds);
 		requestVO.setStartDate(startDate);
@@ -209,8 +224,16 @@ public class AnalyticsController {
 	@ResponseBody
 	public List<NearMissDetailsVO> getNearMissDetails(@PathVariable("nearmissId") String nearmissId){
 		log.info(CLASS_NAME+"::Inside [getNearMissDetails] Controller method!");
+		System.out.println("[getNearMissDetails]########NearMissby ID##########nearmissId:"+nearmissId);
+		 List<NearMissDetailsVO>  listObj = nearMissDetailsService.getNearMissDetails(nearmissId);	
+		 if(listObj != null) {
+			 System.out.println("[getNearMissDetails]########nearmissbyid##########"+listObj.size()); 
+		 }else {
+			 System.out.println("[getNearMissDetails]########No Data Return##########"); 
+		 }
 		
-		return nearMissDetailsService.getNearMissDetails(nearmissId);
+		return listObj;	
+		 
 	}
 	
 	/**
