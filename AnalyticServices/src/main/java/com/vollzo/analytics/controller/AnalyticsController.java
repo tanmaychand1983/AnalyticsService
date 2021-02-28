@@ -239,7 +239,7 @@ public class AnalyticsController {
      * @return -  List<NonConformityDetailsVO> (JSON Object)
      * 
      */
-	@GetMapping(value="/nonconformity/{auditncid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/nonconformitybyid/{auditncid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<NonConformityDetailsVO> getNonConformityDetails(@PathVariable("auditncid") String auditncid){
 		
