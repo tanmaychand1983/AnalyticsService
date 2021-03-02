@@ -41,11 +41,16 @@ public class PurchaseOrderService {
      * Returns Purchase Order Filter, Graph and Grid data by date range and vesselIds from Data layer.
      * 
      * @methodName: getPurchaseOrderData
-     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @param: requestVO - AnalyticsRequestVO {
+     * Service Type(Required) 
+     * Vessel Id List (Required), 
+     * Start Date (defaultValue = ""), 
+     * End Date (defaultValue = "")}
      * @return - List<AnalyticsResponseVO>
      * 
      */
 	public List<AnalyticsResponseVO> getPurchaseOrderData(AnalyticsRequestVO requestVO){
+		String serviceType = requestVO.getServiceType();
 		List<PurchaseOrderEntity> entityList 		= 
 				repository.getPurchaseOrderData(QueryRepository.STORPROC_DASHBOARD_PURORD, requestVO);
 		
@@ -74,9 +79,6 @@ public class PurchaseOrderService {
 			StatusVO statusVO 				= new StatusVO();
 			BudgetCodeVO budgetCodeVO 		= new BudgetCodeVO();
 			
-			materialTypeVO.setMaterialType(entity.getMaterialType());
-			vesselVO.setMaterialTypeVO(materialTypeVO);
-			
 			vendorVO.setVendorId(entity.getVendorId());
 			vendorVO.setVendorDesc(entity.getVendorName());
 			vesselVO.setVendorVO(vendorVO);
@@ -84,20 +86,34 @@ public class PurchaseOrderService {
 			statusVO.setStatusId(entity.getStatusId());
 			statusVO.setStatusDesc(entity.getStatusName());
 			vesselVO.setStatusVO(statusVO);
-			
-			budgetCodeVO.setBudgetCode(entity.getBudgetCode());
-			vesselVO.setBudgetCodeVO(budgetCodeVO);
-			
+			//For Purchase Order 
+			if(serviceType.equalsIgnoreCase("PO")) {
+				budgetCodeVO.setBudgetCode(entity.getBudgetCode());
+				vesselVO.setBudgetCodeVO(budgetCodeVO);
+			}
+			//For Requisition 
+			if(serviceType.equalsIgnoreCase("REQ")) {
+				budgetCodeVO.setBudgetCode(entity.getBudgetCode());
+				vesselVO.setBudgetCodeVO(budgetCodeVO);
+				
+				materialTypeVO.setMaterialType(entity.getMaterialType());
+				vesselVO.setMaterialTypeVO(materialTypeVO);
+			}
+			//For Invoice
+			if(serviceType.equalsIgnoreCase("INV")) {
+				refVO.setInvoiceNo(entity.getInvoiceNumber());
+				refVO.setInvoiceAmount(entity.getInvoiceAmount());
+				refVO.setNetPay(entity.getNetPay());
+			}
+
 			refVO.setRequisitionNumber(entity.getRequisitionNumber());
 			refVO.setId(entity.getId());
 			refVO.setPoNumber(entity.getPoNumber());
 			refVO.setPoTitle(entity.getPoTitle());
 			refVO.setPoDate(entity.getPoDate());
-			refVO.setAccountCode(entity.getBudgetCode());
-			refVO.setTotalAmount(entity.getTotalAmount());
-			refVO.setInvoiceNo(entity.getInvoiceNumber());
-			refVO.setInvoiceAmount(entity.getInvoiceAmount());
-			refVO.setNetPay(entity.getNetPay());
+			refVO.setCurrencyTotalamount(entity.getCurrencyTotalamount());
+			refVO.setUsdTotalamount(entity.getUsdTotalamount());
+			
 			vesselVO.setReferenceDataVO(refVO);
 			
 			vesselVO.setVesselId(entity.getVesselId());

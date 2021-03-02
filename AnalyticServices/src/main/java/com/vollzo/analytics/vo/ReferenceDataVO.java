@@ -56,7 +56,10 @@ public class ReferenceDataVO {
 	private Integer accountCode;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	private Double totalAmount;
+	private String currencyTotalamount;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String usdTotalamount;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String invoiceNo;

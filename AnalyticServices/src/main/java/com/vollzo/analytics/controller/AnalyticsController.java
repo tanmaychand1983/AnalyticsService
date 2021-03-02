@@ -152,18 +152,24 @@ public class AnalyticsController {
      * 
      * @methodName: getPurchaseOrderData
      * @serviceURL: http://<host:port>/analytics/purchaseorder
-     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Start Date (defaultValue = ""), End Date (defaultValue = "")
+     * @param: requestVO - AnalyticsRequestVO {
+     * Service Type(Required)
+     * Vessel Id List (Required), 
+     * Start Date (defaultValue = ""), 
+     * End Date (defaultValue = "")}
      * @return - List<AnalyticsResponseVO> (JSON Object)
      * 
      */
-	@GetMapping(value ="/purchaseorder/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/purchaseorder/{serviceType}/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<AnalyticsResponseVO> getPurchaseOrderData(@PathVariable String vesselIds,
+	public List<AnalyticsResponseVO> getPurchaseOrderData(@PathVariable String serviceType,
+														@PathVariable String vesselIds,
 											            @PathVariable String startDate,
 											            @PathVariable String endDate) {
 		log.info(CLASS_NAME+"::Inside [getPurchaseOrderData] method!");
 		System.out.println("########PurchaseOrder##########vesselIds:"+vesselIds+"##StartDate:"+startDate+"##EndDate:"+endDate);
 		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setServiceType(serviceType);
 		requestVO.setVesselIds(vesselIds);
 		requestVO.setStartDate(startDate);
 		requestVO.setEndDate(endDate);

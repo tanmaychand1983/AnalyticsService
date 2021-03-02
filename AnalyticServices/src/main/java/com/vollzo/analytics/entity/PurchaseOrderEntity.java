@@ -47,9 +47,6 @@ public class PurchaseOrderEntity extends BaseEntity{
 	@Column(name = "material_type")
 	private String materialType;	
 	
-	@Column(name = "requisition_order_id")
-	private Integer requisitionOrderId;
-	
 	@Column(name = "requisition_number")
 	private String requisitionNumber;
 	
@@ -68,8 +65,12 @@ public class PurchaseOrderEntity extends BaseEntity{
 	@Column(name = "status_name")
 	private String statusName;	
 	
-	@Column(name = "total_amount")
-	private Double totalAmount;	
+	@Column(name = "currency_totalamount")
+	private String currencyTotalamount;	
+	
+	@Column(name = "usd_totalamount")
+	private String usdTotalamount;	
+	
 	
 	@Column(name = "invoice_number")
 	private String invoiceNumber;
@@ -80,18 +81,6 @@ public class PurchaseOrderEntity extends BaseEntity{
 	@Column(name = "net_pay")
 	private Double netPay;
 	
-	@Override
-    public String toString() {
-        return "PurchaseOrderEntity [unitId=" + unitId + ", unitName=" + unitName + 
-                ", vesselId=" + vesselId + ", vesselName=" + vesselName   + 
-                ", vendorId=" + vendorId + ", vendorName="+ vendorName +
-                ", statusId=" + statusId + ", statusName="+ statusName +
-                ", budgetCode=" + budgetCode + ", materialType="+ materialType +
-                ", requisitionOrderId=" + requisitionOrderId + ", requisitionOrderId=" + requisitionOrderId +
-                ", requisitionNumber=" + requisitionNumber + ", poNumber=" + poNumber +
-                ", totalAmount=" + totalAmount + ", invoiceNumber=" + invoiceNumber +
-                ", invoiceAmount=" + invoiceAmount + ", netPay=" + netPay +
-                "]";
-    }
+
 	
 }

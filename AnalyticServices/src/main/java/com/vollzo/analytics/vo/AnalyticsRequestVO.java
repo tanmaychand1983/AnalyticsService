@@ -24,4 +24,5 @@ public class AnalyticsRequestVO {
 	private String endDate;
 	private String vesselIds;
 	private String status;
+	private String serviceType;
 }
