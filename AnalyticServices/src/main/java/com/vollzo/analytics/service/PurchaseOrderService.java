@@ -86,6 +86,10 @@ public class PurchaseOrderService {
 			statusVO.setStatusId(entity.getStatusId());
 			statusVO.setStatusDesc(entity.getStatusName());
 			vesselVO.setStatusVO(statusVO);
+			
+			materialTypeVO.setMaterialType(entity.getMaterialType());
+			vesselVO.setMaterialTypeVO(materialTypeVO);
+			
 			//For Purchase Order 
 			if(serviceType.equalsIgnoreCase("PO")) {
 				budgetCodeVO.setBudgetCode(entity.getBudgetCode());
@@ -95,9 +99,6 @@ public class PurchaseOrderService {
 			if(serviceType.equalsIgnoreCase("REQ")) {
 				budgetCodeVO.setBudgetCode(entity.getBudgetCode());
 				vesselVO.setBudgetCodeVO(budgetCodeVO);
-				
-				materialTypeVO.setMaterialType(entity.getMaterialType());
-				vesselVO.setMaterialTypeVO(materialTypeVO);
 			}
 			//For Invoice
 			if(serviceType.equalsIgnoreCase("INV")) {
