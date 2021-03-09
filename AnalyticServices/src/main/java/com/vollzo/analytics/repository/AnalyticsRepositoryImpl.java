@@ -167,9 +167,12 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 				MaintenanceEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
 		
 		query.setParameter(1, requestVO.getVesselIds());
-		query.setParameter(2, requestVO.getStatus());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
 		query.execute();
 		
 		return query.getResultList();

@@ -210,10 +210,16 @@ public class AnalyticsController {
      * 
      */
 	
-	@GetMapping(value ="/maintenance", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value ="/maintenance/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<AnalyticsResponseVO> getMaintenanceData(@RequestBody AnalyticsRequestVO requestVO) {
+	public List<AnalyticsResponseVO> getMaintenanceData(@PathVariable String vesselIds,
+											            @PathVariable String startDate,
+											            @PathVariable String endDate) {
 		log.info(CLASS_NAME+"::Inside [getMaintenanceData] Controller method!");
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setVesselIds(vesselIds);
+		requestVO.setStartDate(startDate);
+		requestVO.setEndDate(endDate);
 		return maintenanceService.getMaintenanceData(requestVO);	
 	}
 	

@@ -72,6 +72,8 @@ public class MaintenanceService {
 			referenceDataVO.setFrequency(entity.getFrequency());
 			referenceDataVO.setLastDone(entity.getLastDone());
 			referenceDataVO.setNextDue(entity.getNextDue());
+			referenceDataVO.setAge(entity.getAge());
+			referenceDataVO.setCritical(entity.getCritical());
 			
 			vesselVO.setVesselId(entity.getVesselId());
 			vesselVO.setVesselDesc(entity.getVesselName());

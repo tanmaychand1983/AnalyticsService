@@ -97,6 +97,9 @@ public class ReferenceDataVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String nextDue;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String critical;
+	
 	//For Port State Control Dashboard
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String inspectionId;
@@ -135,6 +138,14 @@ public class ReferenceDataVO {
 	
 	public void setDueDate(String dueDate){
         this.dueDate = Util.dateFormat(dueDate,"yyyy-MM-dd");
+    }
+	
+	public void setNextDue(String nextDue){
+        this.nextDue = Util.dateFormat(nextDue,"yyyy-MM-dd HH:mm:ss");
+    }
+	
+	public void setLastDone(String lastDone){
+        this.lastDone = Util.dateFormat(lastDone,"yyyy-MM-dd HH:mm:ss");
     }
 	
 	public void setInspectionDate(String inspectionDate){

@@ -61,4 +61,7 @@ public class MaintenanceEntity extends BaseEntity {
 	@Column(name = "next_due")
 	private String nextDue;
 	
+	@Column(name = "critical")
+	private String critical;
+	
 }
