@@ -60,11 +60,12 @@ public class Util {
 		String toDate = "";
 		String toDateFormat="dd/MM/yyyy";
 		try {
-			DateFormat fromDateFormatObj = new SimpleDateFormat(fromDateFormat);
-			fromDateFormatObj.setLenient(false);
-			Date fromDate = fromDateFormatObj.parse(date);
-			
-			toDate = new SimpleDateFormat(toDateFormat).format(fromDate);
+			if(date !="") {
+				DateFormat fromDateFormatObj = new SimpleDateFormat(fromDateFormat);
+				fromDateFormatObj.setLenient(false);
+				Date fromDate = fromDateFormatObj.parse(date);
+				toDate = new SimpleDateFormat(toDateFormat).format(fromDate);
+			}
 			return toDate;
 		} catch (Exception e) {
 			// TODO: handle exception

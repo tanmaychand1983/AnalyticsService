@@ -23,6 +23,7 @@ import com.vollzo.analytics.service.PortStateControlDetailsService;
 import com.vollzo.analytics.service.PortStateControlService;
 import com.vollzo.analytics.service.PurchaseOrderDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderService;
+import com.vollzo.analytics.service.ShipVisitService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
 import com.vollzo.analytics.vo.InspectionVO;
@@ -84,6 +85,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private PortStateControlService portStateControlService;
+	
+	@Autowired
+	private ShipVisitService shipVisitService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -322,5 +326,28 @@ public class AnalyticsController {
 		 requestVO.setEndDate(endDate);
 		 
 		return portStateControlService.getPortStateData(requestVO);
+	}
+	
+	/**
+     * Returns Maintenance Filter, Graph and Grid data by date range from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getMaintenanceData
+     * @serviceURL: http://<host:port>/analytics/maintenance
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return -  List<AnalyticsResponseVO> (JSON Object)
+     * 
+     */
+	
+	@GetMapping(value ="/shipvisit/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<AnalyticsResponseVO> getShipVisitData(@PathVariable String vesselIds,
+											            @PathVariable String startDate,
+											            @PathVariable String endDate) {
+		log.info(CLASS_NAME+"::Inside [getShipVisitData] Controller method!");
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setVesselIds(vesselIds);
+		requestVO.setStartDate(startDate);
+		requestVO.setEndDate(endDate);
+		return shipVisitService.getShipVisitData(requestVO);	
 	}
 }

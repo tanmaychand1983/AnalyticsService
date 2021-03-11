@@ -48,5 +48,9 @@ public class VesselVO {
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private MouVO mouVO;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private VisitTypeVO visitTypeVO;
+	
 
 }

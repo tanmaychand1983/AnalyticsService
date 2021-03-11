@@ -16,6 +16,7 @@ import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
 import com.vollzo.analytics.entity.PortStateControlEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
+import com.vollzo.analytics.entity.ShipVisitEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -287,6 +288,35 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		log.info(CLASS_NAME+"::Inside [getPortStateData] Repository method!");
 		
 		StoredProcedureQuery  query = entityManager.createStoredProcedureQuery(procedureName, PortStateControlEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Ship Visit Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
+     * @methodName: getShipVisitData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return - List<ShipVisitEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShipVisitEntity> getShipVisitData(String procedureName, 
+			AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getShipVisitData] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				ShipVisitEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);

@@ -12,6 +12,7 @@ import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
 import com.vollzo.analytics.entity.PortStateControlEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
+import com.vollzo.analytics.entity.ShipVisitEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
 /**
@@ -64,4 +65,10 @@ public interface AnalyticsRepository {
 	//For Port State Control Dashboard
 	public List<PortStateControlEntity> getPortStateData(String procedureName, 
 			AnalyticsRequestVO requestVO);	
+	
+	//For Ship Visit Dashboard
+	
+	public List<ShipVisitEntity> getShipVisitData(String procedureName, 
+			AnalyticsRequestVO requestVO);	
+	
 }

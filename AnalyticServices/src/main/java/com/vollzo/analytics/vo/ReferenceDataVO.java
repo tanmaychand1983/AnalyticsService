@@ -128,6 +128,46 @@ public class ReferenceDataVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String deficiencieCount;
 	
+	//Start: For Ship Visit
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String visitor;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String portFrom;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String dateIn;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String virDate;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String visitDays;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String nextDuedate;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String virSenttoowner;
+	
+	public void setDateIn(String dateIn){
+        this.dateIn = Util.dateFormat(dateIn,"yyyy-MM-dd");
+    }
+	
+	public void setNextDuedate(String nextDuedate){
+        this.nextDuedate = Util.dateFormat(nextDuedate,"yyyy-MM-dd");
+    }
+	
+	public void setVirDate(String virDate){
+        this.virDate = Util.dateFormat(virDate,"yyyy-MM-dd");
+    }
+	
+	public void setPortFrom(String portFrom){
+        this.portFrom = Util.stringFormat(portFrom);
+    }
+	
+	//End: For Ship Visit
+	
 	public void setReportedDate(String reportedDate){
         this.reportedDate = Util.dateFormat(reportedDate,"yyyy-MM-dd");
     }
