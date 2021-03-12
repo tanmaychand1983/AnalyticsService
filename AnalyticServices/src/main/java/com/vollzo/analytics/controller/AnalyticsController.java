@@ -2,14 +2,12 @@ package com.vollzo.analytics.controller;
 
 import java.util.List;
 
-import javax.sound.sampled.Port;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,16 +21,17 @@ import com.vollzo.analytics.service.PortStateControlDetailsService;
 import com.vollzo.analytics.service.PortStateControlService;
 import com.vollzo.analytics.service.PurchaseOrderDetailsService;
 import com.vollzo.analytics.service.PurchaseOrderService;
+import com.vollzo.analytics.service.ShipVisitDetailsService;
 import com.vollzo.analytics.service.ShipVisitService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
-import com.vollzo.analytics.vo.InspectionVO;
 import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import com.vollzo.analytics.vo.NonConformityDetailsVO;
 import com.vollzo.analytics.vo.PortStateControlDetailsVO;
 import com.vollzo.analytics.vo.PortStateControlVO;
 import com.vollzo.analytics.vo.PurchaseOrderDetailsVO;
+import com.vollzo.analytics.vo.ShipVisitDetailsVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -88,6 +87,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private ShipVisitService shipVisitService;
+	
+	@Autowired
+	private ShipVisitDetailsService shipVisitDetailsService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -349,5 +351,22 @@ public class AnalyticsController {
 		requestVO.setStartDate(startDate);
 		requestVO.setEndDate(endDate);
 		return shipVisitService.getShipVisitData(requestVO);	
+	}
+	
+	/**
+     * Returns Ship Visit Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getShipVisitDetails
+     * @serviceURL: http://<host:port>/analytics/shipvisitbyid/{inspscheduledid}
+     * @param: inspscheduledid (Required)
+     * @return - List<ShipVisitDetailsVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value="/shipvisitbyid/{inspscheduledid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ShipVisitDetailsVO> getShipVisitDetails(@PathVariable("inspscheduledid") String inspscheduledid){
+		log.info(CLASS_NAME+"::Inside [getShipVisitDetails] Controller method!");
+		
+		return shipVisitDetailsService.getShipVisitDetails(inspscheduledid);
 	}
 }
