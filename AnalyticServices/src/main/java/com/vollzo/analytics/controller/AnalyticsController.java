@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.vollzo.analytics.service.AccidentIncidentService;
+import com.vollzo.analytics.service.InvoiceDetailService;
 import com.vollzo.analytics.service.MaintenanceService;
 import com.vollzo.analytics.service.NearMissDetailsService;
 import com.vollzo.analytics.service.NearMissService;
@@ -25,6 +26,7 @@ import com.vollzo.analytics.service.ShipVisitDetailsService;
 import com.vollzo.analytics.service.ShipVisitService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
+import com.vollzo.analytics.vo.InvoiceDetailVO;
 import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import com.vollzo.analytics.vo.NonConformityDetailsVO;
@@ -90,6 +92,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private ShipVisitDetailsService shipVisitDetailsService;
+	
+	@Autowired
+	private InvoiceDetailService invoiceDetailService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -368,5 +373,22 @@ public class AnalyticsController {
 		log.info(CLASS_NAME+"::Inside [getShipVisitDetails] Controller method!");
 		
 		return shipVisitDetailsService.getShipVisitDetails(inspscheduledid);
+	}
+	
+	/**
+     * Returns Invoice Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getInvoiceDetails
+     * @serviceURL: http://<host:port>/analytics/invoicebyid/{poid}
+     * @param: poid (Required)
+     * @return - List<InvoiceDetailVO> (JSON Object)
+     * 
+     */
+	@GetMapping(value="/invoicebyid/{poid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<InvoiceDetailVO> getInvoiceDetails(@PathVariable("poid") String poid){
+		log.info(CLASS_NAME+"::Inside [getInvoiceDetails] Controller method!");
+		
+		return invoiceDetailService.getInvoiceDetails(poid);
 	}
 }
