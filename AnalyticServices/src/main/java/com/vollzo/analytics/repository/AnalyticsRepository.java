@@ -3,6 +3,7 @@ package com.vollzo.analytics.repository;
 import java.util.List;
 
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.InvoiceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
@@ -68,11 +69,14 @@ public interface AnalyticsRepository {
 			AnalyticsRequestVO requestVO);	
 	
 	//For Ship Visit Dashboard
-	
 	public List<ShipVisitEntity> getShipVisitData(String procedureName, 
 			AnalyticsRequestVO requestVO);
-	
 	public List<ShipVisitDetailsEntity> getShipVisitDetails(String procedureName,
 			String inspscheduledid);
+	
+	//For Invoice details
+	public List<InvoiceDetailEntity> getInvoiceDetails(String procedureName,
+				String poId);
+	
 	
 }

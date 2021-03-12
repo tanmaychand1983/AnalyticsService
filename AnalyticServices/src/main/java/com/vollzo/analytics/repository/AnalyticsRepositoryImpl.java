@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.InvoiceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
@@ -351,6 +352,31 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.setParameter(1, inspscheduledid);		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Invoice Modal Dialog data from DB.
+     * @author Deepak Bansal
+     * @methodName: getInvoiceDetails
+     * @param:  procedureName - Procedure Name
+     * @param: poid (Required)
+     * @return - List<InvoiceDetailEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InvoiceDetailEntity> getInvoiceDetails(String procedureName, 
+															String poid){
+		log.info(CLASS_NAME+"::Inside [getInvoiceDetails] Repository method!");
+		
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				InvoiceDetailEntity.class);
+		
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1, poid);		
 		query.execute();
 		
 		return query.getResultList();
