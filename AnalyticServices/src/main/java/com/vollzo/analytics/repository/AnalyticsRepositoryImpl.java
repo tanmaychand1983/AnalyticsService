@@ -16,6 +16,7 @@ import com.vollzo.analytics.entity.PortStateControlDetailsEntity;
 import com.vollzo.analytics.entity.PortStateControlEntity;
 import com.vollzo.analytics.entity.PurchaseOrderDetailsEntity;
 import com.vollzo.analytics.entity.PurchaseOrderEntity;
+import com.vollzo.analytics.entity.ShipVisitDetailsEntity;
 import com.vollzo.analytics.entity.ShipVisitEntity;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 
@@ -313,7 +314,7 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShipVisitEntity> getShipVisitData(String procedureName, 
-			AnalyticsRequestVO requestVO){
+												AnalyticsRequestVO requestVO){
 		log.info(CLASS_NAME+"::Inside [getShipVisitData] Repository method!");
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
 				ShipVisitEntity.class);
@@ -325,6 +326,31 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		query.setParameter(2, requestVO.getStartDate());
 		query.setParameter(3, requestVO.getEndDate());
 		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Ship Visit Modal Dialog data from DB.
+     * @author Deepak Bansal
+     * @methodName: getShipVisitDetails
+     * @param:  procedureName - Procedure Name
+     * @param: inspscheduledid (Required)
+     * @return - List<ShipVisitDetailsEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ShipVisitDetailsEntity> getShipVisitDetails(String procedureName, 
+															String inspscheduledid){
+		log.info(CLASS_NAME+"::Inside [getShipVisitDetails] Repository method!");
+		
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				ShipVisitDetailsEntity.class);
+		
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1, inspscheduledid);		
 		query.execute();
 		
 		return query.getResultList();
