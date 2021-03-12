@@ -60,7 +60,7 @@ public class Util {
 		String toDate = "";
 		String toDateFormat="dd/MM/yyyy";
 		try {
-			if(date !="") {
+			if(date != null && date != "") {
 				DateFormat fromDateFormatObj = new SimpleDateFormat(fromDateFormat);
 				fromDateFormatObj.setLenient(false);
 				Date fromDate = fromDateFormatObj.parse(date);
