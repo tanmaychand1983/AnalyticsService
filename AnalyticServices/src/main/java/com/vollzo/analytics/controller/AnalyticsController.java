@@ -2,7 +2,6 @@ package com.vollzo.analytics.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.vollzo.analytics.service.AccidentIncidentService;
 import com.vollzo.analytics.service.InvoiceDetailService;
+import com.vollzo.analytics.service.MaintenanceDetailService;
 import com.vollzo.analytics.service.MaintenanceService;
 import com.vollzo.analytics.service.NearMissDetailsService;
 import com.vollzo.analytics.service.NearMissService;
@@ -27,6 +28,7 @@ import com.vollzo.analytics.service.ShipVisitService;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
 import com.vollzo.analytics.vo.InvoiceDetailVO;
+import com.vollzo.analytics.vo.MaintenanceDetailVO;
 import com.vollzo.analytics.vo.NearMissDetailsVO;
 import com.vollzo.analytics.vo.NearMissVO;
 import com.vollzo.analytics.vo.NonConformityDetailsVO;
@@ -95,6 +97,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private InvoiceDetailService invoiceDetailService;
+	
+	@Autowired
+	private MaintenanceDetailService maintenanceDetailService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -382,7 +387,6 @@ public class AnalyticsController {
      * @serviceURL: http://<host:port>/analytics/invoicebyid/{poid}
      * @param: poid (Required)
      * @return - List<InvoiceDetailVO> (JSON Object)
-     * 
      */
 	@GetMapping(value="/invoicebyid/{poid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -390,5 +394,21 @@ public class AnalyticsController {
 		log.info(CLASS_NAME+"::Inside [getInvoiceDetails] Controller method!");
 		
 		return invoiceDetailService.getInvoiceDetails(poid);
+	}
+	
+	/**
+     * Returns Invoice Details data from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getMaintenanceDetails
+     * @serviceURL: http://<host:port>/analytics/maintenancebyid/{jobid}
+     * @param: poid (Required)
+     * @return - List<MaintenanceDetailVO> (JSON Object)
+     */
+	@GetMapping(value="/maintenancebyid/{jobid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<MaintenanceDetailVO> getMaintenanceDetails(@PathVariable("jobid") String jobid){
+		log.info(CLASS_NAME+"::Inside [getMaintenanceDetails] Controller method!");
+		
+		return maintenanceDetailService.getMaintenanceDetails(jobid);
 	}
 }
