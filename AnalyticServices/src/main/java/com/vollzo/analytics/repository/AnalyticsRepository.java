@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
 import com.vollzo.analytics.entity.InvoiceDetailEntity;
+import com.vollzo.analytics.entity.MaintenanceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
@@ -29,8 +30,13 @@ import com.vollzo.analytics.vo.AnalyticsRequestVO;
  * 
  */
 public interface AnalyticsRepository {
+	
+	//For Maintenance Dashboard
 	public List<MaintenanceEntity> getMaintenanceData(String procedureName, 
 			AnalyticsRequestVO requestVO);
+	
+	public List<MaintenanceDetailEntity> getMaintenanceDetails(String procedureName,
+			String jobid);
 	
 	//For Near Miss Dashboard
 	public List<NearMissEntity> getNeaMissData(String procedureName, 
@@ -48,25 +54,26 @@ public interface AnalyticsRepository {
 	public List<PurchaseOrderEntity> getPurchaseOrderData(String procedureName,
 			AnalyticsRequestVO requestVO);
 	
-	//For purchase order details
 	public List<PurchaseOrderDetailsEntity> getPurchaseOrderDetails(String procedureName,
 			String poId);
+	
+	//For Invoice details
+	public List<InvoiceDetailEntity> getInvoiceDetails(String procedureName,
+				String poId);
 	
 	//For Non Conformity Dashboard
 	public List<NonConformityEntity> getNonConformityData(String procedureName, 
 			AnalyticsRequestVO requestVO);
 	
-	//For Non Conformity details
 	public List<NonConformityDetailsEntity> getNonConformityDetails(String procedureName,
 				String auditncid);
 		
-	//For Port State Control details
-	public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
-				String inspectionid);
-	
 	//For Port State Control Dashboard
 	public List<PortStateControlEntity> getPortStateData(String procedureName, 
-			AnalyticsRequestVO requestVO);	
+			AnalyticsRequestVO requestVO);
+	
+	public List<PortStateControlDetailsEntity> getPortStateControlDetails(String procedureName,
+			String inspectionid);
 	
 	//For Ship Visit Dashboard
 	public List<ShipVisitEntity> getShipVisitData(String procedureName, 
@@ -74,9 +81,7 @@ public interface AnalyticsRepository {
 	public List<ShipVisitDetailsEntity> getShipVisitDetails(String procedureName,
 			String inspscheduledid);
 	
-	//For Invoice details
-	public List<InvoiceDetailEntity> getInvoiceDetails(String procedureName,
-				String poId);
+;
 	
 	
 }

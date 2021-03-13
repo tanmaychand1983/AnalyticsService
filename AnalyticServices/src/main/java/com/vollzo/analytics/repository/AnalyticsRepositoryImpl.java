@@ -8,6 +8,7 @@ import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
 import com.vollzo.analytics.entity.InvoiceDetailEntity;
+import com.vollzo.analytics.entity.MaintenanceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
 import com.vollzo.analytics.entity.NearMissDetailsEntity;
 import com.vollzo.analytics.entity.NearMissEntity;
@@ -364,7 +365,6 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
      * @param:  procedureName - Procedure Name
      * @param: poid (Required)
      * @return - List<InvoiceDetailEntity>
-     * 
      */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -377,6 +377,30 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.setParameter(1, poid);		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Maintenance Modal Dialog data from DB.
+     * @author Deepak Bansal
+     * @methodName: getMaintenanceDetails
+     * @param:  procedureName - Procedure Name
+     * @param: poid (Required)
+     * @return - List<MaintenanceDetailEntity>
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MaintenanceDetailEntity> getMaintenanceDetails(String procedureName, 
+															String jobid){
+		log.info(CLASS_NAME+"::Inside [getMaintenanceDetails] Repository method!");
+		
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				MaintenanceDetailEntity.class);
+		
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.setParameter(1, jobid);		
 		query.execute();
 		
 		return query.getResultList();
