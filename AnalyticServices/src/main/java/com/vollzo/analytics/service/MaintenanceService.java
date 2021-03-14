@@ -66,6 +66,7 @@ public class MaintenanceService {
 			
 			rankVO.setRankId(entity.getRankId());
 			rankVO.setRankName(entity.getRankName());
+			referenceDataVO.setId(entity.getId());
 			referenceDataVO.setJobNumber(entity.getJobNumber());
 			referenceDataVO.setJobType(entity.getJobType());
 			referenceDataVO.setTitle(entity.getTitle());
