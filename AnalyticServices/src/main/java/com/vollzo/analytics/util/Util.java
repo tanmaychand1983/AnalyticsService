@@ -74,4 +74,33 @@ public class Util {
 			
 		}
 	}
+	
+	/**
+	 * Format the Date Time.
+	 * @methodName: dateFormat
+	 * @param fromdate - Input String
+	 * @param  fromDateFormat - Input String
+	 * @param  toDateFormat - Input String
+	 * @return - String
+	 * @author Deepak Bansal
+	 * @since: Mar 15, 2021
+	 */
+	public static String dateTimeFormat(String date, String fromDateFormat) {
+		String toDate = "";
+		String toDateFormat="dd/MM/yyyy HH:mm:ss";
+		try {
+			if(date != null && date != "") {
+				DateFormat fromDateFormatObj = new SimpleDateFormat(fromDateFormat);
+				fromDateFormatObj.setLenient(false);
+				Date fromDate = fromDateFormatObj.parse(date);
+				toDate = new SimpleDateFormat(toDateFormat).format(fromDate);
+			}
+			return toDate;
+		} catch (Exception e) {
+			// TODO: handle exception
+			String error = "Input date and date time format Mismathched";
+			return e.getMessage()+" : "+error;
+			
+		}
+	}
 }
