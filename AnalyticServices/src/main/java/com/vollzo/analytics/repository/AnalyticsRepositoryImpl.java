@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.FuelConsumptionEntity;
 import com.vollzo.analytics.entity.InvoiceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
@@ -401,6 +402,35 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.setParameter(1, jobid);		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Fuel Consumption Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
+     * @methodName: getFuelConsumptionData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return - List<FuelConsumptionEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<FuelConsumptionEntity> getFuelConsumptionData(String procedureName, 
+												AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getFuelConsumptionData] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+				FuelConsumptionEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
 		query.execute();
 		
 		return query.getResultList();

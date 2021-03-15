@@ -3,6 +3,7 @@ package com.vollzo.analytics.repository;
 import java.util.List;
 
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.FuelConsumptionEntity;
 import com.vollzo.analytics.entity.InvoiceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceEntity;
@@ -81,7 +82,8 @@ public interface AnalyticsRepository {
 	public List<ShipVisitDetailsEntity> getShipVisitDetails(String procedureName,
 			String inspscheduledid);
 	
-;
-	
+	//For Fuel Consumption Dashboard
+	public List<FuelConsumptionEntity> getFuelConsumptionData(String procedureName, 
+			AnalyticsRequestVO requestVO);
 	
 }
