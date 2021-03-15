@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vollzo.analytics.service.AccidentIncidentService;
+import com.vollzo.analytics.service.DownTimeService;
 import com.vollzo.analytics.service.FuelConsumptionService;
 import com.vollzo.analytics.service.InvoiceDetailService;
 import com.vollzo.analytics.service.MaintenanceDetailService;
@@ -104,6 +105,9 @@ public class AnalyticsController {
 	
 	@Autowired
 	private FuelConsumptionService fuelConsumptionService;
+	
+	@Autowired
+	private DownTimeService downTimeService;
 	
 	/**
      * Returns NearMiss Filter, Graph and Grid data by date range from Service layer.
@@ -437,5 +441,28 @@ public class AnalyticsController {
 		requestVO.setStartDate(startDate);
 		requestVO.setEndDate(endDate);
 		return fuelConsumptionService.getFuelConsumptionData(requestVO);
+	}
+	
+	/**
+     * Returns Downtime Filter, Graph and Grid data by date range from Service layer.
+     * @author Deepak Bansal
+     * @methodName: getDownTimeData
+     * @serviceURL: http://<host:port>/analytics/downtime
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return -  List<AnalyticsResponseVO> (JSON Object)
+     * 
+     */
+	
+	@GetMapping(value ="/downtime/{vesselIds}/{startDate}/{endDate}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<AnalyticsResponseVO> getDownTimeData(@PathVariable String vesselIds,
+											            @PathVariable String startDate,
+											            @PathVariable String endDate) {
+		log.info(CLASS_NAME+"::Inside [getDownTimeData] Controller method!");
+		AnalyticsRequestVO requestVO  = new AnalyticsRequestVO();
+		requestVO.setVesselIds(vesselIds);
+		requestVO.setStartDate(startDate);
+		requestVO.setEndDate(endDate);
+		return downTimeService.getDownTimeData(requestVO);
 	}
 }
