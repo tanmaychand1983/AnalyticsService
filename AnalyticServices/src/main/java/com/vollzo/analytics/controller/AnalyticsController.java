@@ -48,9 +48,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Ajaya Kar
  * @since: Jan 23, 2021
  * @version: 1.0.0
- * 
  * @revision: {Name: Date: Reason:} 
- * 
  */
 
 @RestController
