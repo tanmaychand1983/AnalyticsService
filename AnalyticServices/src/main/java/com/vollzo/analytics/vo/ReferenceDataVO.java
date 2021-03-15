@@ -168,6 +168,36 @@ public class ReferenceDataVO {
 	
 	//End: For Ship Visit
 	
+	//Start: For Fuel Consumption
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String speed;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String mainengineConsumption;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String auxilliaryengineConsumption;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String bolierConsumption;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String sea;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String activity;
+	
+	public void setSea(String sea){
+        this.sea = Util.stringFormat(sea);
+    }
+	
+	public void setActivity(String activity){
+        this.activity = Util.stringFormat(portFrom);
+    }
+	
+	//End: For Fuel Consumption
+	
 	public void setReportedDate(String reportedDate){
         this.reportedDate = Util.dateFormat(reportedDate,"yyyy-MM-dd");
     }

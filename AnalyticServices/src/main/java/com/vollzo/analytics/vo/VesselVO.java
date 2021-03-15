@@ -52,5 +52,11 @@ public class VesselVO {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private VisitTypeVO visitTypeVO;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private LoadingConditionVO loadingConditionVO;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private WeatherVO weatherVO;
+	
 
 }
