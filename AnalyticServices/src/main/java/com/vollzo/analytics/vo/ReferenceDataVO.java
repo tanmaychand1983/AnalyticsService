@@ -198,6 +198,31 @@ public class ReferenceDataVO {
 	
 	//End: For Fuel Consumption
 	
+	//Start: Down Time Dashboard
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String fromDateTime;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String toDateTime;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String remarks;
+		
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String officeRemarks;
+	
+	public void setFromDateTime(String fromDateTime){
+        this.fromDateTime = Util.dateTimeFormat(fromDateTime,"yyyy-MM-dd HH:mm:ss");
+    }
+	
+	public void setToDateTime(String toDateTime){
+        this.toDateTime = Util.dateTimeFormat(toDateTime,"yyyy-MM-dd HH:mm:ss");
+    }
+	
+	//End: Down Time Dashboard
+	
+	
 	public void setReportedDate(String reportedDate){
         this.reportedDate = Util.dateFormat(reportedDate,"yyyy-MM-dd");
     }
