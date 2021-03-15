@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import org.springframework.stereotype.Repository;
 import com.vollzo.analytics.entity.AccidentIncidentEntity;
+import com.vollzo.analytics.entity.DownTimeEntity;
 import com.vollzo.analytics.entity.FuelConsumptionEntity;
 import com.vollzo.analytics.entity.InvoiceDetailEntity;
 import com.vollzo.analytics.entity.MaintenanceDetailEntity;
@@ -423,6 +424,35 @@ public class AnalyticsRepositoryImpl implements AnalyticsRepository{
 		log.info(CLASS_NAME+"::Inside [getFuelConsumptionData] Repository method!");
 		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
 				FuelConsumptionEntity.class);
+		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+		
+		query.setParameter(1, requestVO.getVesselIds());
+		query.setParameter(2, requestVO.getStartDate());
+		query.setParameter(3, requestVO.getEndDate());
+		
+		query.execute();
+		
+		return query.getResultList();
+	}
+	
+	/**
+     * Returns Downtime Filter, Graph and Grid data from DB.
+     * @author Deepak Bansal
+     * @methodName: getDownTimeData
+     * @param:  procedureName - Procedure Name
+     * @param: requestVO - AnalyticsRequestVO {Vessel Id List (Required), Status (defaultValue = "")
+     * @return - List<DownTimeEntity>
+     * 
+     */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DownTimeEntity> getDownTimeData(String procedureName, 
+												AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getDownTimeData] Repository method!");
+		StoredProcedureQuery query = entityManager.createStoredProcedureQuery(procedureName, 
+												DownTimeEntity.class);
 		query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
 		query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);

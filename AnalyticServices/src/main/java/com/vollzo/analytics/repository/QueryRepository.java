@@ -27,5 +27,6 @@ public class QueryRepository {
 	public static final String STORPROC_DASHBOARD_SHIPVISIT_DETAILS 	= 	"sp_get_dashboard_shipvisitdetails";
 	public static final String STORPROC_DASHBOARD_INVOICE_DETAILS 		= 	"sp_get_dashboard_invoice_details";
 	public static final String STORPROC_DASHBOARD_FUELCONSUMPTION 		= 	"sp_get_dashboard_fuelconsumption";
+	public static final String STORPROC_DASHBOARD_DOWNTIME		 		= 	"sp_get_dashboard_downtime";
 	
 }
