@@ -1,8 +1,8 @@
 /**
- * {@summary}: This is the Service class for Ship Visit Dashboard.
- * @className: ShipVisitService
+ * {@summary}: This is the Service class for Fuel Consumption Dashboard.
+ * @className: FuelConsumptionService
  * @author Deepak Bansal
- * @since: Mar 11, 2021
+ * @since: Mar 15, 2021
  * @version: 1.0.0
  * @revision: {Name: Date: Reason:} 
  */
@@ -16,36 +16,37 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vollzo.analytics.entity.ShipVisitEntity;
+import com.vollzo.analytics.entity.FuelConsumptionEntity;
 import com.vollzo.analytics.repository.BaseRepository;
 import com.vollzo.analytics.repository.QueryRepository;
 import com.vollzo.analytics.vo.AnalyticsRequestVO;
 import com.vollzo.analytics.vo.AnalyticsResponseVO;
+import com.vollzo.analytics.vo.LoadingConditionVO;
 import com.vollzo.analytics.vo.ReferenceDataVO;
 import com.vollzo.analytics.vo.UnitsVO;
 import com.vollzo.analytics.vo.VesselVO;
-import com.vollzo.analytics.vo.VisitTypeVO;
+import com.vollzo.analytics.vo.WeatherVO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class ShipVisitService {
+public class FuelConsumptionService {
 	
 	@Autowired
 	private BaseRepository repository;
 	
-	private static final String CLASS_NAME = ShipVisitService.class.getName();
+	private static final String CLASS_NAME = FuelConsumptionService.class.getName();
 	
-	public List<AnalyticsResponseVO> getShipVisitData(AnalyticsRequestVO requestVO){
+	public List<AnalyticsResponseVO> getFuelConsumptionData(AnalyticsRequestVO requestVO){
+		log.info(CLASS_NAME+"::Inside [getFuelConsumptionData] Service method!");
 		
-		log.info(CLASS_NAME+"::Inside [getShipVisitData] Service method!");
-		List<ShipVisitEntity> entityList = repository.getShipVisitData(
-					QueryRepository.STORPROC_DASHBOARD_SHIPVISIT, requestVO);
+		List<FuelConsumptionEntity> entityList = repository.getFuelConsumptionData(
+				QueryRepository.STORPROC_DASHBOARD_FUELCONSUMPTION, requestVO);
 		Map<Integer, String> unitsMap = new HashMap<>();
 		List<AnalyticsResponseVO> responseVOList = new ArrayList<>();
 		List<VesselVO> vesselVOList = new ArrayList<VesselVO>();
-		for(ShipVisitEntity entity : entityList) {
+		for(FuelConsumptionEntity entity : entityList) {
 			int unitId = entity.getUnitId();
 			String unitName = entity.getUnitName();				 
 			AnalyticsResponseVO responseVO = new AnalyticsResponseVO();
@@ -61,27 +62,30 @@ public class ShipVisitService {
 			}
 			ReferenceDataVO referenceDataVO 	= new ReferenceDataVO();			
 			VesselVO vesselVO 					= new VesselVO();
-			VisitTypeVO visitTypeVO				= new VisitTypeVO();
+			LoadingConditionVO loadingConditionVO = new LoadingConditionVO();
+			WeatherVO weatherVO					= new WeatherVO();
 			
-			visitTypeVO.setVisitType(entity.getVisitType());
-			
+			loadingConditionVO.setConditions(entity.getConditions());
+			weatherVO.setWeather(entity.getWeather());
 			referenceDataVO.setId(entity.getId());
-			referenceDataVO.setVisitor(entity.getVisitor());
-			referenceDataVO.setPortFrom(entity.getPortFrom());
-			referenceDataVO.setDateIn(entity.getDateIn());
-			referenceDataVO.setVirDate(entity.getVirDate());
-			referenceDataVO.setVisitDays(entity.getVisitDays());
-			referenceDataVO.setNextDuedate(entity.getNextDuedate());
-			referenceDataVO.setVirSenttoowner(entity.getVirSenttoowner());
+			referenceDataVO.setSpeed(entity.getSpeed());
+			referenceDataVO.setMainengineConsumption(entity.getMainengineConsumption());
+			referenceDataVO.setAuxilliaryengineConsumption(entity.getAuxilliaryengineConsumption());
+			referenceDataVO.setBolierConsumption(entity.getBolierConsumption());
+			referenceDataVO.setSea(entity.getSea());
+			referenceDataVO.setActivity(entity.getActivity());
+			referenceDataVO.setReportedDate(entity.getReportDate());
 			
 			vesselVO.setVesselId(entity.getVesselId());
 			vesselVO.setVesselDesc(entity.getVesselName());
-			vesselVO.setVisitTypeVO(visitTypeVO);
+			vesselVO.setLoadingConditionVO(loadingConditionVO);
+			vesselVO.setWeatherVO(weatherVO);
 			vesselVO.setReferenceDataVO(referenceDataVO);
 			
-			vesselVOList.add(vesselVO);			
+			vesselVOList.add(vesselVO);
 			unitsMap.get(unitId);
 		}
+		
 		return responseVOList;
 	}
 }
