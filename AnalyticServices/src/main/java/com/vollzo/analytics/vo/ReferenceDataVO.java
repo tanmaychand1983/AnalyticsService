@@ -207,6 +207,9 @@ public class ReferenceDataVO {
 	private String toDateTime;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private String downTime;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String remarks;
 		
 	@JsonInclude(JsonInclude.Include.NON_NULL)
