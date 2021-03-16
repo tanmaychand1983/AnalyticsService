@@ -43,6 +43,9 @@ public class DownTimeEntity extends BaseEntity {
 	@Column(name = "to_date")
 	private String toDateTime;
 	
+	@Column(name = "down_time")
+	private String downTime;
+	
 	@Column(name = "remarks")
 	private String remarks;
 	
