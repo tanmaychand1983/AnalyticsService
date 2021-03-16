@@ -68,6 +68,7 @@ public class DownTimeService {
 			referenceDataVO.setAge(entity.getAge());
 			referenceDataVO.setFromDateTime(entity.getFromDateTime());
 			referenceDataVO.setToDateTime(entity.getToDateTime());
+			referenceDataVO.setDownTime(entity.getDownTime());
 			referenceDataVO.setRemarks(entity.getRemarks());
 			referenceDataVO.setOfficeRemarks(entity.getOfficeRemarks());
 			referenceDataVO.setReportedBy(entity.getReportedBy());
